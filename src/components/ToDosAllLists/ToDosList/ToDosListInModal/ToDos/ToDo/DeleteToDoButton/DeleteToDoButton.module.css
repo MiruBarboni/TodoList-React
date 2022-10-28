@@ -1,0 +1,16 @@
+.btn {
+	position: absolute;
+	background-color: transparent;
+	font-size: 1rem;
+	font-family: 'Noto Sans JP', sans-serif;
+	text-align: center;
+	background-color: none;
+	border: none;
+	color: #aaa;
+	right: 10px;
+	width: 32px;
+}
+.btn:hover {
+	cursor: pointer;
+	color: #e47d81;
+}

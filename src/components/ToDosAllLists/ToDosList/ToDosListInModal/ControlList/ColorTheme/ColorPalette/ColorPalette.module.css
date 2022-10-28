@@ -1,0 +1,43 @@
+.colorsContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	height: 5vh;
+	width: 100%;
+	padding-top: 10px;
+
+	box-shadow: 0px -2px 1px rgb(0 0 0 / 10%);
+	/* position: fixed;
+	bottom: -15vh;
+	left: 0; */
+}
+/* padding: 0px 30px; */
+/* width: 100vw; */
+/* z-index: 50; */
+
+@keyframes animateFromBottom {
+	from {
+		bottom: -15vh;
+	}
+	to {
+		bottom: 0;
+	}
+}
+@keyframes animateToBottom {
+	from {
+		bottom: 0;
+	}
+	to {
+		bottom: -15vh;
+	}
+}
+.openMenuAnimation {
+	animation: animateFromBottom 1s ease;
+	bottom: 0;
+}
+.closeMenuAnimation {
+	animation: animateToBottom 1s ease;
+	bottom: -15vh;
+}

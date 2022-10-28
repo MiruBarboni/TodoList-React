@@ -1,0 +1,8 @@
+.container {
+	display: block;
+	font-size: 1.2rem;
+	margin: 10px 0;
+	padding: 10px 0;
+	border-top: 1px solid #aaa;
+	color: #212529;
+}

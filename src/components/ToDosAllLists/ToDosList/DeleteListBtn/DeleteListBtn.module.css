@@ -1,0 +1,27 @@
+.deleteIcon {
+	position: relative;
+	color: #212529;
+	position: absolute;
+	top: 5px;
+	right: 0;
+	transition: all ease-in-out.2s;
+}
+.deleteIcon:hover {
+	color: #e47d81;
+}
+
+.tooltiptext {
+	visibility: hidden;
+	position: absolute;
+	top: 1rem;
+	left: -4.5rem;
+	font-size: 0.8rem;
+	padding: 0.5rem;
+	background-color: #333;
+	border-radius: 6px;
+	color: #e47d81;
+	font-family: 'Noto Sans JP', sans-serif;
+}
+.deleteIcon:hover .tooltiptext {
+	visibility: visible;
+}

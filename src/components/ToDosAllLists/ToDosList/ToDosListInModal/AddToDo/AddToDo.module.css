@@ -1,0 +1,13 @@
+.addBtn {
+	color: #fff;
+	background-color: #333;
+	border: 1px solid #333;
+	margin: 0px;
+	margin-bottom: 8px;
+}
+
+.addBtn:hover {
+	color: #fff;
+	background-color: #2a9d8f;
+	border: 1px solid #2a9d8f;
+}

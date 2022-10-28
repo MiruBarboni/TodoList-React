@@ -1,0 +1,14 @@
+.input {
+	position: absolute;
+	border: none;
+	outline: none;
+	background-color: transparent;
+	color: #212529;
+	font-family: 'Noto Sans JP', sans-serif;
+	width: 70%;
+	padding: 5px;
+	font-size: 1rem;
+	left: 50px;
+	top: 5px;
+	margin-right: 10px;
+}

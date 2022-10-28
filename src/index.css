@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0');
+
+* {
+	box-sizing: border-box;
+}
+html {
+	font-family: 'Noto Sans JP', sans-serif;
+}
+
+body {
+	margin: 0;
+	background-color: #333;
+	height: 100vh;
+}
+
+::-webkit-scrollbar {
+	height: 12px;
+	width: 12px;
+	background: rgb(0 0 0 / 5%);
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgb(0 0 0 / 50%);
+	-webkit-border-radius: 1ex;
+}

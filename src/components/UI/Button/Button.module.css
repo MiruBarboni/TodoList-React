@@ -1,0 +1,14 @@
+.btn {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size: 1rem;
+	width: 150px;
+	padding: 10px 15px;
+	margin: 10px 15px;
+	transition: all 0.3s ease-out;
+}
+.btn:hover {
+	cursor: pointer;
+}
