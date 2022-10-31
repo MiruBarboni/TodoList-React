@@ -5,11 +5,12 @@ import { createList } from '../../store/lists-actions';
 import { v4 as uuidv4 } from 'uuid';
 
 import cssStyle from './ControlLists.module.css';
+import { getAllLists } from '../../api/listsApi';
 
 const ControlLists = () => {
 	const dispatch = useDispatch();
 
-	const addNewListHandler = async () => {
+	const addNewListHandler = () => {
 		const id = uuidv4();
 		const newList = {
 			id,
@@ -18,13 +19,9 @@ const ControlLists = () => {
 			color: '#ead2ac',
 			todoList: [],
 		};
-
-		await createList(newList);
-
-		dispatch(listsActions.addList(newList));
+		dispatch(createList(newList));
 	};
 	const removeAllListsHandler = () => {
-		console.log('delete all lists');
 		dispatch(listsActions.deleteAllLists());
 	};
 

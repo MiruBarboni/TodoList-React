@@ -21,15 +21,16 @@ export const fetchListsData = () => {
 		try {
 			dispatch(uiActions.setIsLoading(true));
 			const listsData = await fetchData();
-
-			const listsArray = Object.values(listsData);
-			// firebase does not keep empty arrays. so we need this
-			listsArray.forEach((element) => {
-				if (!element.hasOwnProperty('todoList')) {
-					element.todoList = [];
-				}
-			});
-			dispatch(listsActions.replaceLists(listsArray));
+			if (listsData) {
+				const listsArray = Object.values(listsData);
+				// firebase does not keep empty arrays. so we need this
+				listsArray.forEach((element) => {
+					if (!element.hasOwnProperty('todoList')) {
+						element.todoList = [];
+					}
+				});
+				dispatch(listsActions.replaceLists(listsArray));
+			}
 			dispatch(uiActions.setIsLoading(false));
 		} catch (err) {
 			dispatch(uiActions.setIsLoading(false));
@@ -43,11 +44,12 @@ export const fetchListsData = () => {
 	};
 };
 
-export const createList = async (list) => {
+export const createList = (list) => {
 	return async (dispatch) => {
 		const createData = async () => {
 			//In Firebase, sending a POST request will create a resource
 			// which will be stored in body on the fetch API configuration
+
 			const response = await fetch(
 				'https://todilist-7d4dd-default-rtdb.firebaseio.com/lists.json',
 				{
@@ -69,7 +71,10 @@ export const createList = async (list) => {
 			// console.log('data in createList: ', data);
 		};
 		try {
+			dispatch(uiActions.setIsLoading(true));
 			await createData();
+			dispatch(listsActions.addList(list));
+			dispatch(uiActions.setIsLoading(false));
 		} catch (err) {
 			dispatch(
 				uiActions.seHttpError({
