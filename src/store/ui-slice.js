@@ -6,6 +6,10 @@ const initialState = {
 	isDisplayCancelSearchBtn: false,
 	isColorPaletteActive: false,
 	isListMenuActive: false,
+
+	isLoading: false,
+	httpError: null,
+	errorFunction: null,
 };
 const uiSlice = createSlice({
 	name: 'ui',
@@ -36,6 +40,14 @@ const uiSlice = createSlice({
 
 		hideListMenu(state) {
 			state.isListMenuActive = false;
+		},
+
+		setIsLoading(state, action) {
+			state.isLoading = action.payload;
+		},
+		seHttpError(state, action) {
+			state.httpError = action.payload.httpError;
+			state.errorFunction = action.payload.errorFunction;
 		},
 	},
 });

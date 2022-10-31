@@ -1,22 +1,27 @@
 import { useDispatch } from 'react-redux';
 import { listsActions } from '../../store/lists-slice';
-
 import ControlListBtn from './ControlListBtn/ControListBtn';
+import { createList } from '../../store/lists-actions';
+import { v4 as uuidv4 } from 'uuid';
 
 import cssStyle from './ControlLists.module.css';
 
-const ControlLists = (props) => {
-	const { id, title, category } = props;
+const ControlLists = () => {
 	const dispatch = useDispatch();
 
-	const addNewListHandler = () => {
-		dispatch(
-			listsActions.addList({
-				id,
-				title,
-				category,
-			})
-		);
+	const addNewListHandler = async () => {
+		const id = uuidv4();
+		const newList = {
+			id,
+			title: '',
+			category: 'Select a category',
+			color: '#ead2ac',
+			todoList: [],
+		};
+
+		await createList(newList);
+
+		dispatch(listsActions.addList(newList));
 	};
 	const removeAllListsHandler = () => {
 		console.log('delete all lists');
