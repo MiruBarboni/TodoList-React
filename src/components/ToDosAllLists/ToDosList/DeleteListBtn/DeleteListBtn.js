@@ -1,15 +1,16 @@
 import { useDispatch } from 'react-redux';
-import { listsActions } from '../../../../store/lists-slice';
+
+import { uiActions } from '../../../../store/ui-slice';
+import { deleteList } from '../../../../api/deleteList';
 
 import cssStyle from './DeleteListBtn.module.css';
 import Icon from '../../../UI/GoogleFontsIcons/Icon';
-import { uiActions } from '../../../../store/ui-slice';
 
 const DeleteListBtn = ({ id }) => {
 	const dispatch = useDispatch();
 
 	const deleteListHandler = () => {
-		dispatch(listsActions.deleteList(id));
+		dispatch(deleteList(id));
 		dispatch(uiActions.hideListMenu());
 	};
 

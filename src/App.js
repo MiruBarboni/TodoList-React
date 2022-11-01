@@ -12,7 +12,9 @@ import HttpErrorMessage from './components/UI/HttpErrorMessage/HttpErrorMessage'
 
 function App() {
 	const dispatch = useDispatch();
-	const { isLoading, httpError } = useSelector((state) => state.ui);
+
+	const { isLoading } = useSelector((state) => state.ui);
+	const { httpError } = useSelector((state) => state.error);
 
 	useEffect(() => {
 		dispatch(readLists());

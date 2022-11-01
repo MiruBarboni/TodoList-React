@@ -4,21 +4,19 @@ import { errorActions } from '../store/error-slice';
 import { listsActions } from '../store/lists-slice';
 import { uiActions } from '../store/ui-slice';
 
-export const deleteLists = () => {
+export const deleteList = (listId) => {
 	return async (dispatch) => {
 		const deleteData = async () => {
-			const response = await fetch(
-				`${FIREBASE_URL}/lists.json?x-http-method-override=DELETE`,
-				{
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				}
-			);
+			const response = await fetch(`${FIREBASE_URL}/lists/${listId}.json`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+
 			if (!response.ok) {
 				//avoid warning: Expected an error object to be thrown no-throw-literal
-				throw Object.assign(new Error('Could not delete lists data!'), {
+				throw Object.assign(new Error('Could not delete this list data!'), {
 					status: response.status,
 				});
 			}
@@ -29,7 +27,7 @@ export const deleteLists = () => {
 
 			await deleteData();
 
-			dispatch(listsActions.deleteAllLists());
+			dispatch(listsActions.deleteList(listId));
 
 			dispatch(uiActions.setIsLoading(false));
 		} catch (err) {
@@ -38,7 +36,8 @@ export const deleteLists = () => {
 			dispatch(
 				errorActions.seHttpError({
 					httpError: { message: err.message, status: err.status },
-					errorFunction: 'deleteLists',
+					errorFunction: 'deleteList',
+					retryInformation: { listId: listId },
 				})
 			);
 		}

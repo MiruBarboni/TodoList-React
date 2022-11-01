@@ -1,15 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-	openedListId: null,
 	searchedValue: '',
 	isDisplayCancelSearchBtn: false,
 	isColorPaletteActive: false,
 	isListMenuActive: false,
-
 	isLoading: false,
-	httpError: null,
-	errorFunction: null,
 };
 const uiSlice = createSlice({
 	name: 'ui',
@@ -44,10 +40,6 @@ const uiSlice = createSlice({
 
 		setIsLoading(state, action) {
 			state.isLoading = action.payload;
-		},
-		seHttpError(state, action) {
-			state.httpError = action.payload.httpError;
-			state.errorFunction = action.payload.errorFunction;
 		},
 	},
 });

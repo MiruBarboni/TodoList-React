@@ -8,7 +8,8 @@ import ToDosListContent from './ToDosListContent/ToDosListContent';
 const ToDoList = ({ id }) => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
-	const openModalHandler = () => {
+	const openModalHandler = (e) => {
+		if (e.target.innerText === 'delete\nDelete List') return;
 		setIsModalOpen(true);
 	};
 
