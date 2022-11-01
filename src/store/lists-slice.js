@@ -11,11 +11,12 @@ const listsSlice = createSlice({
 		replaceLists(state, action) {
 			return action.payload;
 		},
-		deleteAllLists() {
-			return [];
-		},
 		addList(state, action) {
 			state.push(action.payload);
+		},
+
+		deleteAllLists() {
+			return [];
 		},
 		deleteList(state, action) {
 			const id = action.payload;

@@ -1,8 +1,8 @@
 import Button from '../../UI/Button/Button';
 
-import cssStyle from './ControlListBtn.module.css';
+import cssStyle from './ControlButton.module.css';
 
-const ControlListBtn = (props) => {
+const ControlButton = (props) => {
 	return (
 		<Button
 			className={`${cssStyle.btn} ${props.className ? props.className : ''}`}
@@ -13,4 +13,4 @@ const ControlListBtn = (props) => {
 	);
 };
 
-export default ControlListBtn;
+export default ControlButton;

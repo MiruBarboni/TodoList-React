@@ -1,5 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { createList, fetchListsData } from '../../../store/lists-actions';
+
+import { createList } from '../../../api/createList';
+import { deleteLists } from '../../../api/deleteLists';
+import { readLists } from '../../../api/readLists';
 
 import Icon from '../GoogleFontsIcons/Icon';
 
@@ -12,11 +15,16 @@ const HttpErrorMessage = () => {
 	const ReloadPageHandler = () => {
 		if (errorFunction) {
 			switch (errorFunction) {
-				case 'fetchListsData':
-					dispatch(fetchListsData());
+				case 'readLists':
+					dispatch(readLists());
 					break;
+
 				case 'createList':
 					dispatch(createList());
+					break;
+
+				case 'deleteLists':
+					dispatch(deleteLists());
 					break;
 
 				default:

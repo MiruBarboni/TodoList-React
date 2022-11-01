@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 
 import { listsActions } from '../../../../../store/lists-slice';
 
-import ControlListBtn from '../../../../ControlLists/ControlListBtn/ControListBtn';
+import ControlButton from '../../../../UI/ControlButton/ControlButton';
 
 import cssStyle from './AddToDo.module.css';
 
@@ -13,9 +13,9 @@ const AddToDo = ({ id: listId }) => {
 		dispatch(listsActions.addTodo(listId));
 	};
 	return (
-		<ControlListBtn className={cssStyle.addBtn} onClick={addToDoHandler}>
+		<ControlButton className={cssStyle.addBtn} onClick={addToDoHandler}>
 			+ Item
-		</ControlListBtn>
+		</ControlButton>
 	);
 };
 
