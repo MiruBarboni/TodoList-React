@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { listsActions } from '../../../../../../../../store/lists-slice';
+import { updateList } from '../../../../../../../../api/updateList';
 
 import cssStyle from './Color.module.css';
 
@@ -7,12 +7,7 @@ const Color = ({ id, ...props }) => {
 	const dispatch = useDispatch();
 
 	const changeListColorHandler = () => {
-		dispatch(
-			listsActions.updateList({
-				id,
-				toUpdate: { color: props.color },
-			})
-		);
+		dispatch(updateList({ color: props.color }, id));
 	};
 
 	return (

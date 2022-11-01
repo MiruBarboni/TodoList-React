@@ -4,6 +4,7 @@ import { createList } from '../../../api/createList';
 import { deleteLists } from '../../../api/deleteLists';
 import { readLists } from '../../../api/readLists';
 import { deleteList } from '../../../api/deleteList';
+import { updateList } from '../../../api/updateList';
 
 import Icon from '../GoogleFontsIcons/Icon';
 
@@ -33,6 +34,12 @@ const HttpErrorMessage = () => {
 
 				case 'deleteList':
 					dispatch(deleteList(retryInformation.listId));
+					break;
+
+				case 'updateList':
+					dispatch(
+						updateList(retryInformation.updateValue, retryInformation.listId)
+					);
 					break;
 
 				default:

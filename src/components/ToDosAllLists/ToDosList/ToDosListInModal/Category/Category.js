@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-
 import { useDispatch } from 'react-redux';
-import { listsActions } from '../../../../../store/lists-slice';
 
-import cssStyle from './Category.module.css';
 import CategoryField from './CategoryField/CategoryField';
 import CategoryOptions from './CategoryOptions/CategoryOptions';
+
+import { updateList } from '../../../../../api/updateList';
+
+import cssStyle from './Category.module.css';
 
 const Category = ({ id }) => {
 	const dispatch = useDispatch();
@@ -26,12 +27,7 @@ const Category = ({ id }) => {
 		toggleCategoriesHandler();
 		setSelectCategory(clickedCategory);
 
-		dispatch(
-			listsActions.updateList({
-				id,
-				toUpdate: { category: clickedCategory },
-			})
-		);
+		dispatch(updateList({ category: clickedCategory }, id));
 	};
 
 	return (
