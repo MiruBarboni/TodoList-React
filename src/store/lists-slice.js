@@ -55,12 +55,8 @@ const listsSlice = createSlice({
 
 			const list = state.find((list) => list.id === listId);
 			list.todoList = list.todoList.filter((todo) => todo.id !== todoId);
-
-			// list.todoList.splice(
-			// 	list.todoList.findIndex((todo) => todo.id === todoId),
-			// 	1
-			// );
 		},
+
 		addTodo(state, action) {
 			const { listId, todoObj } = action.payload;
 
