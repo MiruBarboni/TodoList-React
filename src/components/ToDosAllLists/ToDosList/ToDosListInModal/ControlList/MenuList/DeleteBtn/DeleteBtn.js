@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux';
-import { listsActions } from '../../../../../../../store/lists-slice';
+
+import { deleteList } from '../../../../../../../api/deleteList';
 import { uiActions } from '../../../../../../../store/ui-slice';
 import MenuListBtn from '../MenuListBtn/MenuListBtn';
 
@@ -11,7 +12,7 @@ const DeleteBtn = ({ id }) => {
 	const dispatch = useDispatch();
 
 	const deleteListHandler = () => {
-		dispatch(listsActions.deleteList(id));
+		dispatch(deleteList(id));
 		dispatch(uiActions.hideListMenu());
 	};
 	return (
