@@ -38,6 +38,19 @@ export const readLists = () => {
 				listsArray.forEach((element) => {
 					if (!element.hasOwnProperty('todoList')) {
 						element.todoList = [];
+					} else {
+						const todosData = element.todoList;
+
+						if (todosData) {
+							const todosArray = [];
+							Object.entries(todosData).forEach((el) => {
+								todosArray.push({
+									...el[1],
+									id: el[0],
+								});
+							});
+							element.todoList = todosArray;
+						}
 					}
 				});
 

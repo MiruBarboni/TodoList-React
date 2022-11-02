@@ -5,6 +5,7 @@ import { deleteLists } from '../../../api/deleteLists';
 import { readLists } from '../../../api/readLists';
 import { deleteList } from '../../../api/deleteList';
 import { updateList } from '../../../api/updateList';
+import { createToDo } from '../../../api/todoList/createToDo';
 
 import Icon from '../GoogleFontsIcons/Icon';
 
@@ -20,6 +21,7 @@ const HttpErrorMessage = () => {
 	const ReloadPageHandler = () => {
 		if (errorFunction) {
 			switch (errorFunction) {
+				//Lists
 				case 'readLists':
 					dispatch(readLists());
 					break;
@@ -40,6 +42,11 @@ const HttpErrorMessage = () => {
 					dispatch(
 						updateList(retryInformation.updateValue, retryInformation.listId)
 					);
+					break;
+
+				//Todos
+				case 'createToDo':
+					dispatch(createToDo(retryInformation.todo, retryInformation.listId));
 					break;
 
 				default:

@@ -62,18 +62,11 @@ const listsSlice = createSlice({
 			// );
 		},
 		addTodo(state, action) {
-			const listId = action.payload;
+			const { listId, todoObj } = action.payload;
 
 			const list = state.find((list) => list.id === listId);
 
-			const todoId = uuidv4();
-			const newTodo = {
-				id: todoId,
-				text: '',
-				isChecked: false,
-			};
-
-			list.todoList.unshift(newTodo);
+			list.todoList.unshift(todoObj);
 		},
 
 		updateToDo(state, action) {

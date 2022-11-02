@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { listsActions } from '../../../../../store/lists-slice';
+import { createToDo } from '../../../../../api/todoList/createToDo';
 
 import ControlButton from '../../../../UI/ControlButton/ControlButton';
 
@@ -10,7 +10,12 @@ const AddToDo = ({ id: listId }) => {
 	const dispatch = useDispatch();
 
 	const addToDoHandler = () => {
-		dispatch(listsActions.addTodo(listId));
+		const newTodo = {
+			text: '',
+			isChecked: false,
+		};
+
+		dispatch(createToDo(newTodo, listId));
 	};
 	return (
 		<ControlButton className={cssStyle.addBtn} onClick={addToDoHandler}>
