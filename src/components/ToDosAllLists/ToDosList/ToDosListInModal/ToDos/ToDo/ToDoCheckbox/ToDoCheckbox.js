@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { listsActions } from '../../../../../../../store/lists-slice';
+import { updateToDo } from '../../../../../../../api/todoList/updateToDo';
 
 import cssStyle from './ToDoCheckbox.module.css';
 
@@ -7,15 +7,9 @@ const ToDoCheckbox = ({ showChecked, listId, todoId }) => {
 	const dispatch = useDispatch();
 
 	const updateTodoCheckStatusHandler = (showChecked) => {
-		console.log('here inside updatetoDoCheckStatus');
-		dispatch(
-			listsActions.updateToDo({
-				listId,
-				todoId,
-				toUpdate: { isChecked: !showChecked },
-			})
-		);
+		dispatch(updateToDo({ isChecked: !showChecked }, listId, todoId));
 	};
+
 	return (
 		<>
 			<input

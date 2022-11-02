@@ -7,6 +7,7 @@ import { deleteList } from '../../../api/deleteList';
 import { updateList } from '../../../api/updateList';
 import { createToDo } from '../../../api/todoList/createToDo';
 import { deleteToDo } from '../../../api/todoList/deleteToDo';
+import { updateToDo } from '../../../api/todoList/updateToDo';
 
 import Icon from '../GoogleFontsIcons/Icon';
 
@@ -53,6 +54,16 @@ const HttpErrorMessage = () => {
 				case 'deleteToDo':
 					dispatch(
 						deleteToDo(retryInformation.listId, retryInformation.todoId)
+					);
+					break;
+
+				case 'updateToDo':
+					dispatch(
+						updateToDo(
+							retryInformation.updatedToDo,
+							retryInformation.listId,
+							retryInformation.todoId
+						)
 					);
 					break;
 

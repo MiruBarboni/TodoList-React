@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useCallback } from 'react';
 
-import { listsActions } from '../../../../../../store/lists-slice';
+import { updateToDo } from '../../../../../../api/todoList/updateToDo';
 
 import ToDoCheckbox from './ToDoCheckbox/ToDoCheckbox';
 import DeleteToDoButton from './DeleteToDoButton/DeleteToDoButton';
@@ -14,13 +14,7 @@ const ToDo = ({ showChecked, todoId, listId }) => {
 
 	const updateTodoTextHandler = useCallback(
 		(changedTodoText) => {
-			dispatch(
-				listsActions.updateToDo({
-					listId,
-					todoId,
-					toUpdate: { text: changedTodoText },
-				})
-			);
+			dispatch(updateToDo({ text: changedTodoText }, listId, todoId));
 		},
 		[listId, todoId, dispatch]
 	);
