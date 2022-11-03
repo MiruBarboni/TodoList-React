@@ -9,7 +9,7 @@ const MenuListContent = React.forwardRef((props, listMenuRef) => {
 	return (
 		<div ref={listMenuRef} className={cssStyle.container}>
 			<DeleteBtn id={id} />
-			<CopyBtn id={id} />
+			<CopyBtn id={id} closeModalHandler={props.closeModalHandler} />
 		</div>
 	);
 });

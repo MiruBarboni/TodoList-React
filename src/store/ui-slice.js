@@ -6,6 +6,7 @@ const initialState = {
 	isColorPaletteActive: false,
 	isListMenuActive: false,
 	isLoading: false,
+	openModalOnCopy: false,
 };
 const uiSlice = createSlice({
 	name: 'ui',
@@ -40,6 +41,9 @@ const uiSlice = createSlice({
 
 		setIsLoading(state, action) {
 			state.isLoading = action.payload;
+		},
+		setOpenModalOnCopy(state, action) {
+			state.openModalOnCopy = action.payload;
 		},
 	},
 });

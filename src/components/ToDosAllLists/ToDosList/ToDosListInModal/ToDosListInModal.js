@@ -14,7 +14,7 @@ import { updateList } from '../../../../api/updateList';
 
 import cssStyle from './ToDosListInModal.module.css';
 
-const ToDosListInModal = ({ id }) => {
+const ToDosListInModal = ({ id, closeModalHandler }) => {
 	const { color } = useSelector((state) =>
 		state.lists.find((list) => list.id === id)
 	);
@@ -37,7 +37,7 @@ const ToDosListInModal = ({ id }) => {
 				<ToDos id={id} showChecked={false} />
 				<CheckedToDos id={id} />
 				<ToDos id={id} showChecked={true} />
-				<ControlList id={id} />
+				<ControlList id={id} closeModalHandler={closeModalHandler} />
 			</Card>
 		</>
 	);

@@ -1,13 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
-import _ from 'lodash';
 
 const listsSlice = createSlice({
 	name: 'lists',
 	initialState: [],
 
 	reducers: {
-		//replace the list from UI with the list that is loading from Firebase
 		replaceLists(state, action) {
 			return action.payload;
 		},
@@ -32,21 +29,6 @@ const listsSlice = createSlice({
 					};
 				else return list;
 			});
-		},
-		copyList(state, action) {
-			const id = action.payload;
-			const list = _.cloneDeep(state.find((item) => item.id === id));
-
-			list.title
-				? (list.title = `Copy of ${list.title}`)
-				: (list.title = 'Copy of Untitle List');
-
-			list.id = uuidv4();
-			list.todoList.forEach((todo) => {
-				todo.id = uuidv4();
-			});
-
-			state.push(list);
 		},
 
 		//Reducers for ToDos items

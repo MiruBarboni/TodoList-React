@@ -15,7 +15,9 @@ const ControlList = ({ id, ...props }) => {
 	return (
 		<section className={cssStyle.container}>
 			{!isListMenuActive && <ColorTheme id={id} />}
-			{!isColorPaletteActive && <MenuList id={id} />}
+			{!isColorPaletteActive && (
+				<MenuList id={id} closeModalHandler={props.closeModalHandler} />
+			)}
 		</section>
 	);
 };

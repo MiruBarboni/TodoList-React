@@ -19,6 +19,7 @@ const MenuList = ({ id, ...props }) => {
 				<MenuListContent
 					ref={listMenuRef}
 					closeListMenuHandler={closeListMenuHandler}
+					closeModalHandler={props.closeModalHandler}
 					id={id}
 				/>
 			)}

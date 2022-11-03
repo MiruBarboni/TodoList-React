@@ -4,9 +4,15 @@ import { useOnClickOutside } from '../../../hooks/useOnClickOutside';
 import Modal from '../../UI/Modal/Modal';
 import ToDosListInModal from './ToDosListInModal/ToDosListInModal';
 import ToDosListContent from './ToDosListContent/ToDosListContent';
+import { useSelector } from 'react-redux';
 
 const ToDoList = ({ id }) => {
-	const [isModalOpen, setIsModalOpen] = useState(false);
+	const shouldOpenModalOnInitialRender = useSelector(
+		(state) => state.ui.openModalOnCopy
+	);
+	const [isModalOpen, setIsModalOpen] = useState(
+		shouldOpenModalOnInitialRender
+	);
 
 	const openModalHandler = (e) => {
 		if (e.target.innerText === 'delete\nDelete List') return;
@@ -25,7 +31,7 @@ const ToDoList = ({ id }) => {
 		<>
 			{isModalOpen && (
 				<Modal closeModalHandler={closeModalHandler} ref={modalRef}>
-					<ToDosListInModal id={id} />
+					<ToDosListInModal id={id} closeModalHandler={closeModalHandler} />
 				</Modal>
 			)}
 
