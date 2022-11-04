@@ -1,0 +1,32 @@
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { authActions } from '../../../../store/auth-slice';
+
+import cssStyle from './Navigation.module.css';
+
+const Navigation = () => {
+	const dispatch = useDispatch();
+
+	const { token } = useSelector((state) => state.auth);
+
+	const logoutHandler = () => {
+		dispatch(authActions.logout());
+	};
+
+	return (
+		<nav className={cssStyle.nav}>
+			<ul>
+				{!token && <li>Login</li>}
+				{token && <li>Profile</li>}
+				{token && (
+					<li>
+						<button onClick={logoutHandler}>Logout</button>
+					</li>
+				)}
+			</ul>
+		</nav>
+	);
+};
+
+export default Navigation;

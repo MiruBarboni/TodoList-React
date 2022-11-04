@@ -12,6 +12,7 @@ import { updateToDo } from '../../../api/todoList/updateToDo';
 import Icon from '../GoogleFontsIcons/Icon';
 
 import cssStyle from './HttpErrorMessage.module.css';
+import { fetchAuthData } from '../../../api/authentication/authentication';
 
 const HttpErrorMessage = () => {
 	const dispatch = useDispatch();
@@ -65,6 +66,11 @@ const HttpErrorMessage = () => {
 							retryInformation.todoId
 						)
 					);
+					break;
+
+				//Authentication
+				case 'fetchAuthData':
+					dispatch(fetchAuthData());
 					break;
 
 				default:
