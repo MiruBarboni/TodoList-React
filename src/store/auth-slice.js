@@ -4,6 +4,7 @@ const initialState = {
 	isLoginFormDisplayed: false,
 	expirationTime: null,
 	token: null,
+	userId: null,
 };
 
 const authSlice = createSlice({
@@ -15,26 +16,31 @@ const authSlice = createSlice({
 		},
 
 		login(state, action) {
-			const { token, expirationTime } = action.payload;
+			const { token, expirationTime, userId } = action.payload;
 
 			state.token = token;
 			state.expirationTime = expirationTime;
+			state.userId = userId;
 
 			localStorage.setItem('token', token);
 			localStorage.setItem('expirationTime', expirationTime);
+			localStorage.setItem('userId', userId);
 		},
 
 		logout(state) {
 			state.token = null;
 			state.expirationTime = null;
+			state.userId = null;
 
 			localStorage.removeItem('token', null);
 			localStorage.removeItem('expirationTime', null);
+			localStorage.removeItem('userId', null);
 		},
 
 		initializeAuthData(state) {
 			state.token = localStorage.getItem('token');
 			state.expirationTime = localStorage.getItem('expirationTime');
+			state.userId = localStorage.getItem('userId');
 		},
 	},
 });

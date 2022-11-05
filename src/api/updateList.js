@@ -4,16 +4,19 @@ import { errorActions } from '../store/error-slice';
 import { listsActions } from '../store/lists-slice';
 import { uiActions } from '../store/ui-slice';
 
-export const updateList = (updateValue, listId) => {
+export const updateList = (updateValue, listId, userId) => {
 	return async (dispatch) => {
 		const updateData = async () => {
-			const response = await fetch(`${FIREBASE_URL}/lists/${listId}.json`, {
-				method: 'PATCH',
-				body: JSON.stringify(updateValue),
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
+			const response = await fetch(
+				`${FIREBASE_URL}/${userId}/lists/${listId}.json`,
+				{
+					method: 'PATCH',
+					body: JSON.stringify(updateValue),
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				}
+			);
 
 			if (!response.ok) {
 				//avoid warning: Expected an error object to be thrown no-throw-literal

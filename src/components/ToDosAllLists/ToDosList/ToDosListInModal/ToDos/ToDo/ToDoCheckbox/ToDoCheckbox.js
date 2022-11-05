@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateToDo } from '../../../../../../../api/todoList/updateToDo';
 
 import cssStyle from './ToDoCheckbox.module.css';
@@ -6,8 +6,10 @@ import cssStyle from './ToDoCheckbox.module.css';
 const ToDoCheckbox = ({ showChecked, listId, todoId }) => {
 	const dispatch = useDispatch();
 
+	const userId = useSelector((state) => state.auth.userId);
+
 	const updateTodoCheckStatusHandler = (showChecked) => {
-		dispatch(updateToDo({ isChecked: !showChecked }, listId, todoId));
+		dispatch(updateToDo({ isChecked: !showChecked }, listId, todoId, userId));
 	};
 
 	return (

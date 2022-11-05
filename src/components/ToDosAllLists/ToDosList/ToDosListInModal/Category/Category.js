@@ -12,6 +12,8 @@ import cssStyle from './Category.module.css';
 const Category = ({ id }) => {
 	const dispatch = useDispatch();
 
+	const userId = useSelector((state) => state.auth.userId);
+
 	const [isCategoriesBoxOpen, setIsCategoriesBoxOpen] = useState(false);
 
 	const { category } = useSelector((state) =>
@@ -27,7 +29,7 @@ const Category = ({ id }) => {
 		toggleCategoriesHandler();
 		setSelectCategory(clickedCategory);
 
-		dispatch(updateList({ category: clickedCategory }, id));
+		dispatch(updateList({ category: clickedCategory }, id, userId));
 	};
 
 	return (

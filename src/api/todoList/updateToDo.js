@@ -4,11 +4,11 @@ import { errorActions } from '../../store/error-slice';
 import { listsActions } from '../../store/lists-slice';
 import { uiActions } from '../../store/ui-slice';
 
-export const updateToDo = (updatedToDo, listId, todoId) => {
+export const updateToDo = (updatedToDo, listId, todoId, userId) => {
 	return async (dispatch) => {
 		const fetchData = async () => {
 			const response = await fetch(
-				`${FIREBASE_URL}/lists/${listId}/todoList/${todoId}.json`,
+				`${FIREBASE_URL}/${userId}/lists/${listId}/todoList/${todoId}.json`,
 				{
 					method: 'PATCH',
 					body: JSON.stringify(updatedToDo),

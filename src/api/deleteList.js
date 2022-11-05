@@ -4,15 +4,18 @@ import { errorActions } from '../store/error-slice';
 import { listsActions } from '../store/lists-slice';
 import { uiActions } from '../store/ui-slice';
 
-export const deleteList = (listId) => {
+export const deleteList = (listId, userId) => {
 	return async (dispatch) => {
 		const deleteData = async () => {
-			const response = await fetch(`${FIREBASE_URL}/lists/${listId}.json`, {
-				method: 'DELETE',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-			});
+			const response = await fetch(
+				`${FIREBASE_URL}/${userId}/lists/${listId}.json`,
+				{
+					method: 'DELETE',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+				}
+			);
 
 			if (!response.ok) {
 				//avoid warning: Expected an error object to be thrown no-throw-literal

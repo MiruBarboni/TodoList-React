@@ -4,10 +4,10 @@ import { uiActions } from '../store/ui-slice';
 import { listsActions } from '../store/lists-slice';
 import { errorActions } from '../store/error-slice';
 
-export const readLists = () => {
+export const readLists = (userId) => {
 	return async (dispatch) => {
 		const fetchData = async () => {
-			const response = await fetch(`${FIREBASE_URL}/lists.json`);
+			const response = await fetch(`${FIREBASE_URL}/${userId}/lists.json`);
 
 			if (!response.ok) {
 				//avoid warning: Expected an error object to be thrown no-throw-literal

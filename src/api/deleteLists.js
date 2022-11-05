@@ -4,11 +4,11 @@ import { errorActions } from '../store/error-slice';
 import { listsActions } from '../store/lists-slice';
 import { uiActions } from '../store/ui-slice';
 
-export const deleteLists = () => {
+export const deleteLists = (userId) => {
 	return async (dispatch) => {
 		const deleteData = async () => {
 			const response = await fetch(
-				`${FIREBASE_URL}/lists.json?x-http-method-override=DELETE`,
+				`${FIREBASE_URL}/${userId}/lists.json?x-http-method-override=DELETE`,
 				{
 					method: 'POST',
 					headers: {

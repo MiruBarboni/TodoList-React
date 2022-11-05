@@ -10,12 +10,17 @@ import cssStyle from './DeleteButton.module.css';
 
 const DeleteButton = () => {
 	const dispatch = useDispatch();
+
 	const lists = useSelector((state) => state.lists);
+
+	const userId = useSelector((state) => state.auth.userId);
 
 	const [showNotFoundMsg, setShowNotFoundMsg] = useState(false);
 
 	const removeAllListsHandler = () => {
-		lists.length !== 0 ? dispatch(deleteLists()) : setShowNotFoundMsg(true);
+		lists.length !== 0
+			? dispatch(deleteLists(userId))
+			: setShowNotFoundMsg(true);
 	};
 	const showNotFoundMsgRef = useRef();
 	useOnClickOutside(showNotFoundMsgRef, () => setShowNotFoundMsg(false));

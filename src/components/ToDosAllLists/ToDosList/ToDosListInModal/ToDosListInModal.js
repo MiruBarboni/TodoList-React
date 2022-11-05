@@ -15,15 +15,17 @@ import { updateList } from '../../../../api/updateList';
 import cssStyle from './ToDosListInModal.module.css';
 
 const ToDosListInModal = ({ id, closeModalHandler }) => {
+	const dispatch = useDispatch();
+
 	const { color } = useSelector((state) =>
 		state.lists.find((list) => list.id === id)
 	);
 
-	const dispatch = useDispatch();
+	const userId = useSelector((state) => state.auth.userId);
 
 	const titleHandler = useCallback(
 		(changedTitle) => {
-			dispatch(updateList({ title: changedTitle }, id));
+			dispatch(updateList({ title: changedTitle }, id, userId));
 		},
 		[id, dispatch]
 	);

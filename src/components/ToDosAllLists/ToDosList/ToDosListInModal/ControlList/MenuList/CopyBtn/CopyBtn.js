@@ -18,6 +18,7 @@ const CopyBtn = ({ id, closeModalHandler }) => {
 	const list = useSelector((state) =>
 		state.lists.find((list) => list.id === id)
 	);
+	const userId = useSelector((state) => state.auth.userId);
 
 	const copyListHandler = () => {
 		const deepCopyList = _.cloneDeep(list);
@@ -28,7 +29,7 @@ const CopyBtn = ({ id, closeModalHandler }) => {
 
 		dispatch(uiActions.setOpenModalOnCopy(true));
 		dispatch(uiActions.hideListMenu());
-		dispatch(createList(deepCopyList));
+		dispatch(createList(deepCopyList, userId));
 
 		setIsCopied(true);
 

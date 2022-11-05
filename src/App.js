@@ -1,28 +1,31 @@
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import { readLists } from './api/readLists';
 
-// import ControlLists from './components/ControlLists/ControlLists';
-// import ToDosAllLists from './components/ToDosAllLists/ToDosAllLists';
-// import SearchLists from './components/SearchLists/SearchLists';
-// import Loading from './components/UI/Loading/Loading';
-// import HttpErrorMessage from './components/UI/HttpErrorMessage/HttpErrorMessage';
+import ControlLists from './components/ControlLists/ControlLists';
+import ToDosAllLists from './components/ToDosAllLists/ToDosAllLists';
+import SearchLists from './components/SearchLists/SearchLists';
+import Loading from './components/UI/Loading/Loading';
+import HttpErrorMessage from './components/UI/HttpErrorMessage/HttpErrorMessage';
+import Layout from './components/Layout/Layout';
 
 import AuthPage from './pages/AuthPage';
-import Layout from './components/Layout/Layout';
 import { authActions } from './store/auth-slice';
 
 function App() {
 	const dispatch = useDispatch();
 
-	// const { isLoading } = useSelector((state) => state.ui);
-	const expirationTime = useSelector((state) => state.auth.expirationTime);
+	const { isLoading, httpError } = useSelector((state) => state.ui);
+	const { token, expirationTime } = useSelector((state) => state.auth);
+
+	const userId = useSelector((state) => state.auth.userId);
 
 	useEffect(() => {
-		dispatch(readLists());
-	}, [dispatch]);
+		if (userId) dispatch(readLists(userId));
+	}, [dispatch, userId]);
 
 	useEffect(() => {
 		dispatch(authActions.initializeAuthData());
@@ -30,21 +33,42 @@ function App() {
 
 	useEffect(() => {
 		const currentTime = new Date().getTime();
-		if (currentTime > expirationTime) {
+		if (expirationTime && currentTime > expirationTime) {
+			console.log(currentTime, expirationTime);
 			dispatch(authActions.logout());
 		}
-	}, [expirationTime, dispatch]);
+	}, [expirationTime]);
 
 	return (
 		<>
 			<Layout />
-			<AuthPage />
-
-			{/* {isLoading && <Loading />}
-			<SearchLists />
-			<ControlLists />
+			{isLoading && <Loading />}
 			{httpError && <HttpErrorMessage />}
-			<ToDosAllLists /> */}
+
+			<Switch>
+				{token && (
+					<Route path='/' exact>
+						<SearchLists />
+						<ControlLists />
+						<ToDosAllLists />
+					</Route>
+				)}
+
+				{!token && (
+					<Route path='/auth'>
+						<AuthPage />
+					</Route>
+				)}
+
+				<Route path='*'>
+					{token ? <Redirect to='/' /> : <Redirect to='/auth' />}
+				</Route>
+
+				{/* <Route path='/profile'>
+					{token && <UserProfile />}
+					{!token && <Redirect to='/auth' />}
+				</Route> */}
+			</Switch>
 		</>
 	);
 }

@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { deleteList } from '../../../../../../../api/deleteList';
 import { uiActions } from '../../../../../../../store/ui-slice';
@@ -11,8 +11,10 @@ import cssStyle from './DeleteBtn.module.css';
 const DeleteBtn = ({ id }) => {
 	const dispatch = useDispatch();
 
+	const userId = useSelector((state) => state.auth.userId);
+
 	const deleteListHandler = () => {
-		dispatch(deleteList(id));
+		dispatch(deleteList(id, userId));
 		dispatch(uiActions.hideListMenu());
 	};
 	return (

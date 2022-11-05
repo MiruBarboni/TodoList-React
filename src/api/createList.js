@@ -4,13 +4,13 @@ import { errorActions } from '../store/error-slice';
 import { listsActions } from '../store/lists-slice';
 import { uiActions } from '../store/ui-slice';
 
-export const createList = (list) => {
+export const createList = (list, userId) => {
 	return async (dispatch) => {
 		const createData = async () => {
 			//In Firebase, sending a POST request will create a resource
 			// which will be stored in body on the fetch API configuration
 
-			const response = await fetch(`${FIREBASE_URL}/lists.json`, {
+			const response = await fetch(`${FIREBASE_URL}/${userId}/lists.json`, {
 				method: 'POST',
 				body: JSON.stringify(list),
 				headers: {

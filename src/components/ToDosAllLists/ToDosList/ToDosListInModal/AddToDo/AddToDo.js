@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { createToDo } from '../../../../../api/todoList/createToDo';
 
@@ -9,13 +9,15 @@ import cssStyle from './AddToDo.module.css';
 const AddToDo = ({ id: listId }) => {
 	const dispatch = useDispatch();
 
+	const userId = useSelector((state) => state.auth.userId);
+
 	const addToDoHandler = () => {
 		const newTodo = {
 			text: '',
 			isChecked: false,
 		};
 
-		dispatch(createToDo(newTodo, listId));
+		dispatch(createToDo(newTodo, listId, userId));
 	};
 	return (
 		<ControlButton className={cssStyle.addBtn} onClick={addToDoHandler}>

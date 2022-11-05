@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateList } from '../../../../../../../../api/updateList';
 
 import cssStyle from './Color.module.css';
@@ -6,8 +6,10 @@ import cssStyle from './Color.module.css';
 const Color = ({ id, ...props }) => {
 	const dispatch = useDispatch();
 
+	const userId = useSelector((state) => state.auth.userId);
+
 	const changeListColorHandler = () => {
-		dispatch(updateList({ color: props.color }, id));
+		dispatch(updateList({ color: props.color }, id, userId));
 	};
 
 	return (

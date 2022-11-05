@@ -4,11 +4,11 @@ import { errorActions } from '../../store/error-slice';
 import { listsActions } from '../../store/lists-slice';
 import { uiActions } from '../../store/ui-slice';
 
-export const createToDo = (todo, listId) => {
+export const createToDo = (todo, listId, userId) => {
 	return async (dispatch) => {
 		const createData = async () => {
 			const response = await fetch(
-				`${FIREBASE_URL}/lists/${listId}/todoList.json`,
+				`${FIREBASE_URL}/${userId}/lists/${listId}/todoList.json`,
 				{
 					method: 'POST',
 					body: JSON.stringify(todo),

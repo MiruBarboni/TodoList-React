@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { uiActions } from '../../../../store/ui-slice';
 import { deleteList } from '../../../../api/deleteList';
@@ -9,8 +9,10 @@ import Icon from '../../../UI/GoogleFontsIcons/Icon';
 const DeleteListBtn = ({ id }) => {
 	const dispatch = useDispatch();
 
+	const userId = useSelector((state) => state.auth.userId);
+
 	const deleteListHandler = () => {
-		dispatch(deleteList(id));
+		dispatch(deleteList(id, userId));
 		dispatch(uiActions.hideListMenu());
 	};
 
