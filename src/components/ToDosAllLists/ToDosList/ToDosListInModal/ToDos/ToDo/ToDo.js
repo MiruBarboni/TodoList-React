@@ -18,7 +18,7 @@ const ToDo = ({ showChecked, todoId, listId }) => {
 		(changedTodoText) => {
 			dispatch(updateToDo({ text: changedTodoText }, listId, todoId), userId);
 		},
-		[listId, todoId, dispatch]
+		[listId, todoId, dispatch, userId]
 	);
 	return (
 		<div className={cssStyle.container}>

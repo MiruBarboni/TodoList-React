@@ -6,7 +6,7 @@ const PasswordInput = ({ passwordInputRef }) => {
 	return (
 		<div className={cssStyle.control}>
 			<label htmlFor='password'>Your Password</label>
-			<input ref={passwordInputRef} type='password' id='password' required />
+			<input ref={passwordInputRef} type='password' id='password' />
 		</div>
 	);
 };

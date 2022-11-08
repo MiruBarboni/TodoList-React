@@ -6,7 +6,7 @@ const EmailInput = ({ emailInputRef }) => {
 	return (
 		<div className={cssStyle.control}>
 			<label htmlFor='email'>Your Email</label>
-			<input ref={emailInputRef} type='email' id='email' required />
+			<input ref={emailInputRef} type='email' id='email' />
 		</div>
 	);
 };

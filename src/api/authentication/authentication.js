@@ -1,7 +1,6 @@
 import { authActions } from '../../store/auth-slice';
 import { errorActions } from '../../store/error-slice';
 import { uiActions } from '../../store/ui-slice';
-import { calculateRemainingTime } from '../../utils/calculateRemainingTime';
 
 export const fetchAuthData = (url, enteredEmail, enteredPassword) => {
 	return async (dispatch) => {
@@ -29,7 +28,7 @@ export const fetchAuthData = (url, enteredEmail, enteredPassword) => {
 		try {
 			dispatch(uiActions.setIsLoading(true));
 			const data = await fetchData();
-			console.log(data);
+
 			const expirationTime = new Date(
 				new Date().getTime() + +data.expiresIn * 1000
 			); //expiresIn is a nr of ms in which the ID token expires (string type)
@@ -39,11 +38,9 @@ export const fetchAuthData = (url, enteredEmail, enteredPassword) => {
 					token: data.idToken,
 					expirationTime: expirationTime.getTime(),
 					userId: data.localId,
+					refreshToken: data.refreshToken,
 				})
 			);
-
-			const remainingTime = calculateRemainingTime(expirationTime);
-			setTimeout(() => dispatch(authActions.logout()), remainingTime);
 
 			dispatch(uiActions.setIsLoading(false));
 		} catch (err) {

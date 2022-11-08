@@ -27,7 +27,7 @@ const ToDosListInModal = ({ id, closeModalHandler }) => {
 		(changedTitle) => {
 			dispatch(updateList({ title: changedTitle }, id, userId));
 		},
-		[id, dispatch]
+		[id, dispatch, userId]
 	);
 
 	return (

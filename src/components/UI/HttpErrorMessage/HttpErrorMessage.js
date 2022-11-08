@@ -13,6 +13,7 @@ import Icon from '../GoogleFontsIcons/Icon';
 
 import cssStyle from './HttpErrorMessage.module.css';
 import { fetchAuthData } from '../../../api/authentication/authentication';
+import { refreshTokenFn } from '../../../api/authentication/refreshToken';
 
 const HttpErrorMessage = () => {
 	const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const HttpErrorMessage = () => {
 	const { httpError, errorFunction, retryInformation } = useSelector(
 		(state) => state.error
 	);
+	const { refreshToken } = useSelector((state) => state.auth);
 
 	const ReloadPageHandler = () => {
 		if (errorFunction) {
@@ -74,6 +76,10 @@ const HttpErrorMessage = () => {
 					break;
 
 				default:
+					break;
+
+				case 'refreshTokenFn':
+					dispatch(refreshTokenFn(retryInformation.refreshToken));
 					break;
 			}
 		}
