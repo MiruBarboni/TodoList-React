@@ -29,11 +29,12 @@
 	font-weight: bold;
 	padding: 0.5rem 1.5rem;
 	border-radius: 6px;
-	transition: all 0.3s;
+	transition: all 0.3s ease-in;
 }
 
 .nav button:hover {
-	background-color: #f77f00;
-	border: 1px solid#f77f00;
+	background-color: #fff;
+	border: 1px solid#fff;
+	color: #003049;
 	cursor: pointer;
 }

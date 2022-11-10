@@ -40,7 +40,7 @@ export const deleteToDo = (listId, todoId, userId) => {
 				errorActions.seHttpError({
 					httpError: { message: err.message, status: err.status },
 					errorFunction: 'deleteToDo',
-					retryInformation: { listId, todoId },
+					retryInformation: { listId, todoId, userId },
 				})
 			);
 		}

@@ -2,11 +2,10 @@ import React from 'react';
 
 import MainNavigation from './MainNavigation/MainNavigation';
 
-const Layout = (props) => {
+const Layout = () => {
 	return (
 		<>
 			<MainNavigation />
-			<main>{props.children}</main>
 		</>
 	);
 };

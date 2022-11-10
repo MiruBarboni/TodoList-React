@@ -39,6 +39,7 @@ export const deleteLists = (userId) => {
 				errorActions.seHttpError({
 					httpError: { message: err.message, status: err.status },
 					errorFunction: 'deleteLists',
+					retryInformation: { userId },
 				})
 			);
 		}

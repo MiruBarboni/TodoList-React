@@ -64,6 +64,7 @@ export const readLists = (userId) => {
 				errorActions.seHttpError({
 					httpError: { message: err.message, status: err.status },
 					errorFunction: 'readLists',
+					retryInformation: { userId },
 				})
 			);
 		}

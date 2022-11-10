@@ -41,7 +41,7 @@ export const updateToDo = (updatedToDo, listId, todoId, userId) => {
 				errorActions.seHttpError({
 					httpError: { message: err.message, status: err.status },
 					errorFunction: 'updateToDo',
-					retryInformation: { updateToDo, listId, todoId },
+					retryInformation: { updateToDo, listId, todoId, userId },
 				})
 			);
 		}

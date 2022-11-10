@@ -42,6 +42,7 @@ export const createList = (list, userId) => {
 				errorActions.seHttpError({
 					httpError: { message: err.message, status: err.status },
 					errorFunction: 'createList',
+					retryInformation: { userId },
 				})
 			);
 		}

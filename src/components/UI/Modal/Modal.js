@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 
 import cssStyle from './Modal.module.css';
+import Icon from '../GoogleFontsIcons/Icon';
 
 const Backdrop = (props) => {
 	return <div className={cssStyle.backdrop} onClick={props.onClose}></div>;
@@ -11,12 +12,10 @@ const ModalOverlay = React.forwardRef((props, modalRef) => {
 	return (
 		<div className={cssStyle.modal} ref={modalRef}>
 			<div>{props.children}</div>
-			<button
-				className={`material-symbols-outlined ${cssStyle.closeModal}`}
-				onClick={props.closeModalHandler}
-			>
+
+			<Icon onClick={props.closeModalHandler} className={cssStyle.closeModal}>
 				Close
-			</button>
+			</Icon>
 		</div>
 	);
 });

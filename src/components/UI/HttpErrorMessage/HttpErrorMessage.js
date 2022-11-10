@@ -12,8 +12,6 @@ import { updateToDo } from '../../../api/todoList/updateToDo';
 import Icon from '../GoogleFontsIcons/Icon';
 
 import cssStyle from './HttpErrorMessage.module.css';
-import { fetchAuthData } from '../../../api/authentication/authentication';
-import { refreshTokenFn } from '../../../api/authentication/refreshToken';
 
 const HttpErrorMessage = () => {
 	const dispatch = useDispatch();
@@ -21,42 +19,57 @@ const HttpErrorMessage = () => {
 	const { httpError, errorFunction, retryInformation } = useSelector(
 		(state) => state.error
 	);
-	const { refreshToken } = useSelector((state) => state.auth);
 
 	const ReloadPageHandler = () => {
 		if (errorFunction) {
 			switch (errorFunction) {
 				//Lists
 				case 'readLists':
-					dispatch(readLists());
+					dispatch(readLists(retryInformation.userId));
 					break;
 
 				case 'createList':
-					dispatch(createList());
+					dispatch(createList(retryInformation.userId));
 					break;
 
 				case 'deleteLists':
-					dispatch(deleteLists());
+					dispatch(deleteLists(retryInformation.userId));
 					break;
 
 				case 'deleteList':
-					dispatch(deleteList(retryInformation.listId));
+					dispatch(
+						deleteList(retryInformation.listId, retryInformation.userId)
+					);
 					break;
 
 				case 'updateList':
 					dispatch(
-						updateList(retryInformation.updateValue, retryInformation.listId)
+						updateList(
+							retryInformation.updateValue,
+							retryInformation.listId,
+							retryInformation.userId
+						)
 					);
 					break;
 
 				//Todos
 				case 'createToDo':
-					dispatch(createToDo(retryInformation.todo, retryInformation.listId));
+					dispatch(
+						createToDo(
+							retryInformation.todo,
+							retryInformation.listId,
+							retryInformation.userId
+						)
+					);
 					break;
 
 				case 'deleteToDo':
 					dispatch(
-						deleteToDo(retryInformation.listId, retryInformation.todoId)
+						deleteToDo(
+							retryInformation.listId,
+							retryInformation.todoId,
+							retryInformation.userId
+						)
 					);
 					break;
 
@@ -65,21 +78,13 @@ const HttpErrorMessage = () => {
 						updateToDo(
 							retryInformation.updatedToDo,
 							retryInformation.listId,
-							retryInformation.todoId
+							retryInformation.todoId,
+							retryInformation.userId
 						)
 					);
 					break;
 
-				//Authentication
-				case 'fetchAuthData':
-					dispatch(fetchAuthData());
-					break;
-
 				default:
-					break;
-
-				case 'refreshTokenFn':
-					dispatch(refreshTokenFn(retryInformation.refreshToken));
 					break;
 			}
 		}
@@ -88,10 +93,15 @@ const HttpErrorMessage = () => {
 		<section className={cssStyle.errContainer}>
 			<Icon className={cssStyle.errIcon}>error</Icon>
 			<h1 className={cssStyle.errTitle}>Uh, oh!</h1>
-			<p>{httpError?.status + ' - ' + httpError?.message}</p>
-			<button className={cssStyle.errBtn} onClick={ReloadPageHandler}>
-				Retry
-			</button>
+			<p>
+				<span className={cssStyle.errCode}> {httpError?.status}</span>
+				{' : ' + httpError?.message}
+			</p>
+			{retryInformation && (
+				<button className={cssStyle.errBtn} onClick={ReloadPageHandler}>
+					Retry
+				</button>
+			)}
 		</section>
 	);
 };

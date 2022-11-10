@@ -9,26 +9,36 @@
 	cursor: pointer;
 	font: inherit;
 	color: #fff;
-	background-color: #003049;
-	border: 1px solid #003049;
+	background-color: #002f49b9;
+	border: none;
 	border-radius: 4px;
 	padding: 0.5rem 2.5rem;
+	transition: all 0.3s ease-in;
 }
 
 .actions button:hover {
-	background-color: #f77f00;
-	border-color: #fca311;
+	background-color: #003049;
+}
+
+.actions button:disabled,
+.actions button:disabled:hover,
+.actions button:disabled:active {
+	background-color: #adb5bdbe;
+	color: #002f49c5;
+
+	cursor: not-allowed;
 }
 
 .actions .toggle {
 	margin-top: 1rem;
 	background-color: transparent;
-	color: #f77f00;
 	border: none;
+	color: #003049;
 	padding: 0.15rem 1.5rem;
+	transition: all 0.3s ease-in;
 }
 
 .actions .toggle:hover {
 	background-color: transparent;
-	color: #003049;
+	color: #002f49b9;
 }

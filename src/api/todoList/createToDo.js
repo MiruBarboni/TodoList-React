@@ -44,7 +44,7 @@ export const createToDo = (todo, listId, userId) => {
 				errorActions.seHttpError({
 					httpError: { message: err.message, status: err.status },
 					errorFunction: 'createToDo',
-					retryInformation: { listId, todo },
+					retryInformation: { listId, todo, userId },
 				})
 			);
 		}

@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { uiActions } from '../../store/ui-slice';
 
@@ -8,14 +9,17 @@ import cssStyle from './SearchLists.module.css';
 const SearchLists = () => {
 	const dispatch = useDispatch();
 
-	const searchListsHandler = (searchedString) => {
-		const searchedValue = searchedString.toLowerCase();
-		dispatch(uiActions.setSearchedValue(searchedValue));
+	const searchListsHandler = useCallback(
+		(searchedString) => {
+			const searchedValue = searchedString.toLowerCase();
+			dispatch(uiActions.setSearchedValue(searchedValue));
 
-		searchedValue.length > 0
-			? dispatch(uiActions.displayCancelSearchBtn())
-			: dispatch(uiActions.hideCancelSearchBtn());
-	};
+			searchedValue.length > 0
+				? dispatch(uiActions.displayCancelSearchBtn())
+				: dispatch(uiActions.hideCancelSearchBtn());
+		},
+		[dispatch]
+	);
 
 	return (
 		<section className={cssStyle.search}>

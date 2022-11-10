@@ -2,11 +2,27 @@ import React from 'react';
 
 import cssStyle from '../ControlInput.module.css';
 
-const EmailInput = ({ emailInputRef }) => {
+const EmailInput = (props) => {
+	const isEmailINVALID = props.emailIsTouched && !props.emailIsValid;
+
+	const emailInputClasses = isEmailINVALID
+		? `${cssStyle.control} ${cssStyle.invalid}`
+		: `${cssStyle.control}`;
+
 	return (
-		<div className={cssStyle.control}>
+		<div className={emailInputClasses}>
 			<label htmlFor='email'>Your Email</label>
-			<input ref={emailInputRef} type='email' id='email' />
+			<input
+				type='email'
+				id='email'
+				value={props.emailState.value}
+				onChange={props.emailChangeHandler}
+				onBlur={props.emailBlurHandler}
+			/>
+
+			{isEmailINVALID && (
+				<p className={cssStyle.errorText}>Email is invalid.</p>
+			)}
 		</div>
 	);
 };

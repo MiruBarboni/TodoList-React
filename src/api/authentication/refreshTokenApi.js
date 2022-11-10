@@ -1,49 +1,46 @@
-import { authActions } from '../../store/auth-slice';
+import { FIREBASE_REFRESH_TOKEN_URL } from '../../constants/firebase';
 import { errorActions } from '../../store/error-slice';
-import { uiActions } from '../../store/ui-slice';
+import { authActions } from '../../store/auth-slice';
 import axios from 'axios';
 
-export const authentication = (url, enteredEmail, enteredPassword) => {
+export const refreshTokenApi = (token) => {
 	return async (dispatch) => {
-		const authData = async () => {
+		const refreshTokenData = async () => {
 			const body = {
-				email: enteredEmail,
-				password: enteredPassword,
-				returnSecureToken: true,
+				refresh_token: token,
+				grant_type: 'refresh_token',
 			};
 			const headers = {
 				headers: {
-					'Content-Type': 'application/json',
+					'Content-Type': 'application/x-www-form-urlencoded',
 				},
 			};
 
-			const response = await axios.post(url, body, headers);
+			const response = await axios.post(
+				FIREBASE_REFRESH_TOKEN_URL,
+				body,
+				headers
+			);
 
 			return response.data;
 		};
 
 		try {
-			dispatch(uiActions.setIsLoading(true));
-
-			const data = await authData();
+			const data = await refreshTokenData();
 
 			const expirationTime = new Date(
-				new Date().getTime() + +data.expiresIn * 1000
+				new Date().getTime() + +data.expires_in * 1000
 			); //expiresIn is a nr of ms in which the ID token expires (string type)
 
 			dispatch(
 				authActions.login({
-					token: data.idToken,
+					token: data.id_token,
 					expirationTime: expirationTime.getTime(),
-					userId: data.localId,
-					refreshToken: data.refreshToken,
+					userId: data.user_id,
+					refreshToken: data.refresh_token,
 				})
 			);
-
-			dispatch(uiActions.setIsLoading(false));
 		} catch (err) {
-			dispatch(uiActions.setIsLoading(false));
-
 			const errorMessage = err.response?.data.error.message
 				? {
 						message: err.response?.data.error.message,
@@ -56,7 +53,7 @@ export const authentication = (url, enteredEmail, enteredPassword) => {
 			dispatch(
 				errorActions.seHttpError({
 					httpError: errorMessage,
-					errorFunction: 'authentication',
+					errorFunction: 'refreshTokenApi',
 					retryInformation: null,
 				})
 			);

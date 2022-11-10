@@ -2,11 +2,25 @@ import React from 'react';
 
 import cssStyle from '../ControlInput.module.css';
 
-const PasswordInput = ({ passwordInputRef }) => {
+const PasswordInput = (props) => {
+	const isPasswordINVALID = props.passwordIsTouched && !props.passwordIsValid;
+	const passwordInputClasses = isPasswordINVALID
+		? `${cssStyle.control} ${cssStyle.invalid}`
+		: `${cssStyle.control}`;
+
 	return (
-		<div className={cssStyle.control}>
+		<div className={passwordInputClasses}>
 			<label htmlFor='password'>Your Password</label>
-			<input ref={passwordInputRef} type='password' id='password' />
+			<input
+				type='password'
+				id='password'
+				value={props.passwordState.value}
+				onChange={props.passwordChangeHandler}
+				onBlur={props.passwordBlurHandler}
+			/>
+			{isPasswordINVALID && (
+				<p className={cssStyle.errorText}>Password is invalid.</p>
+			)}
 		</div>
 	);
 };
