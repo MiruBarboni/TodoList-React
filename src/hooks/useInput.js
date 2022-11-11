@@ -58,7 +58,6 @@ export function useInput(pattern, initialValue) {
 	return {
 		inputState,
 		inputChangeHandler,
-
 		inputReset,
 	};
 }
