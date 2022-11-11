@@ -14,12 +14,10 @@ const ToDo = ({ showChecked, todoId, listId }) => {
 
 	const userId = useSelector((state) => state.auth.userId);
 
-	const updateTodoTextHandler = useCallback(
-		(changedTodoText) => {
-			dispatch(updateToDo({ text: changedTodoText }, listId, todoId), userId);
-		},
-		[listId, todoId, dispatch, userId]
-	);
+	const updateTodoTextHandler = useCallback((changedTodoText) => {
+		dispatch(updateToDo({ text: changedTodoText }, listId, todoId, userId));
+	}, []);
+
 	return (
 		<div className={cssStyle.container}>
 			<ToDoCheckbox showChecked={showChecked} todoId={todoId} listId={listId} />
