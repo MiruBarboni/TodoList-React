@@ -2,8 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	httpError: null,
-	errorFunction: null,
-	retryInformation: null,
 };
 
 const errorSlice = createSlice({
@@ -12,8 +10,6 @@ const errorSlice = createSlice({
 	reducers: {
 		seHttpError(state, action) {
 			state.httpError = action.payload.httpError;
-			state.errorFunction = action.payload.errorFunction;
-			state.retryInformation = action.payload.retryInformation;
 		},
 	},
 });

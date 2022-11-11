@@ -1,7 +1,9 @@
-import { FIREBASE_REFRESH_TOKEN_URL } from '../../constants/firebase';
-import { errorActions } from '../../store/error-slice';
-import { authActions } from '../../store/auth-slice';
 import axios from 'axios';
+
+import { FIREBASE_REFRESH_TOKEN_URL } from '../../constants/firebase';
+import { authActions } from '../../store/auth-slice';
+
+import { setHttpError } from '../../utils/setHttpError';
 
 export const refreshTokenApi = (token) => {
 	return async (dispatch) => {
@@ -41,22 +43,7 @@ export const refreshTokenApi = (token) => {
 				})
 			);
 		} catch (err) {
-			const errorMessage = err.response?.data.error.message
-				? {
-						message: err.response?.data.error.message,
-						status: err.response?.status,
-				  }
-				: {
-						message: err.message,
-						status: err.code,
-				  };
-			dispatch(
-				errorActions.seHttpError({
-					httpError: errorMessage,
-					errorFunction: 'refreshTokenApi',
-					retryInformation: null,
-				})
-			);
+			setHttpError(err, dispatch);
 		}
 	};
 };

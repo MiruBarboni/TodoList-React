@@ -1,22 +1,25 @@
+import axios from 'axios';
+
 import { FIREBASE_URL } from '../constants/firebase';
 
 import { uiActions } from '../store/ui-slice';
 import { listsActions } from '../store/lists-slice';
-import { errorActions } from '../store/error-slice';
+
+import { setHttpError } from '../utils/setHttpError';
 
 export const readLists = (userId) => {
 	return async (dispatch) => {
 		const fetchData = async () => {
-			const response = await fetch(`${FIREBASE_URL}/${userId}/lists.json`);
+			const url = `${FIREBASE_URL}/${userId}/lists.json`;
+			const headers = {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			};
 
-			if (!response.ok) {
-				//avoid warning: Expected an error object to be thrown no-throw-literal
-				throw Object.assign(new Error('Could not fetch lists data!'), {
-					status: response.status,
-				});
-			}
-			const data = await response.json();
-			return data;
+			const response = await axios.get(url, headers);
+
+			return response.data;
 		};
 
 		try {
@@ -60,13 +63,7 @@ export const readLists = (userId) => {
 		} catch (err) {
 			dispatch(uiActions.setIsLoading(false));
 
-			dispatch(
-				errorActions.seHttpError({
-					httpError: { message: err.message, status: err.status },
-					errorFunction: 'readLists',
-					retryInformation: { userId },
-				})
-			);
+			setHttpError(err, dispatch);
 		}
 	};
 };

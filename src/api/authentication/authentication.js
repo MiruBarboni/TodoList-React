@@ -1,7 +1,9 @@
-import { authActions } from '../../store/auth-slice';
-import { errorActions } from '../../store/error-slice';
-import { uiActions } from '../../store/ui-slice';
 import axios from 'axios';
+
+import { authActions } from '../../store/auth-slice';
+import { uiActions } from '../../store/ui-slice';
+
+import { setHttpError } from '../../utils/setHttpError';
 
 export const authentication = (url, enteredEmail, enteredPassword) => {
 	return async (dispatch) => {
@@ -44,22 +46,7 @@ export const authentication = (url, enteredEmail, enteredPassword) => {
 		} catch (err) {
 			dispatch(uiActions.setIsLoading(false));
 
-			const errorMessage = err.response?.data.error.message
-				? {
-						message: err.response?.data.error.message,
-						status: err.response?.status,
-				  }
-				: {
-						message: err.message,
-						status: err.code,
-				  };
-			dispatch(
-				errorActions.seHttpError({
-					httpError: errorMessage,
-					errorFunction: 'authentication',
-					retryInformation: null,
-				})
-			);
+			setHttpError(err, dispatch);
 		}
 	};
 };

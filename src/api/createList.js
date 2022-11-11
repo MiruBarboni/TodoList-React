@@ -1,31 +1,25 @@
+import axios from 'axios';
+
 import { FIREBASE_URL } from '../constants/firebase';
 
-import { errorActions } from '../store/error-slice';
 import { listsActions } from '../store/lists-slice';
 import { uiActions } from '../store/ui-slice';
+
+import { setHttpError } from '../utils/setHttpError';
 
 export const createList = (list, userId) => {
 	return async (dispatch) => {
 		const createData = async () => {
-			//In Firebase, sending a POST request will create a resource
-			// which will be stored in body on the fetch API configuration
-
-			const response = await fetch(`${FIREBASE_URL}/${userId}/lists.json`, {
-				method: 'POST',
-				body: JSON.stringify(list),
+			const url = `${FIREBASE_URL}/${userId}/lists.json`;
+			const body = list;
+			const headers = {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-			});
+			};
+			const response = await axios.post(url, body, headers);
 
-			if (!response.ok) {
-				//avoid warning: Expected an error object to be thrown no-throw-literal
-				throw Object.assign(new Error('Could not create the list!'), {
-					status: response.status,
-				});
-			}
-
-			return await response.json(); //new id
+			return response.data;
 		};
 		try {
 			dispatch(uiActions.setIsLoading(true));
@@ -38,13 +32,7 @@ export const createList = (list, userId) => {
 		} catch (err) {
 			dispatch(uiActions.setIsLoading(false));
 
-			dispatch(
-				errorActions.seHttpError({
-					httpError: { message: err.message, status: err.status },
-					errorFunction: 'createList',
-					retryInformation: { userId },
-				})
-			);
+			setHttpError(err, dispatch);
 		}
 	};
 };

@@ -1,28 +1,26 @@
+import axios from 'axios';
+
 import { FIREBASE_URL } from '../../constants/firebase';
 
-import { errorActions } from '../../store/error-slice';
 import { listsActions } from '../../store/lists-slice';
 import { uiActions } from '../../store/ui-slice';
+
+import { setHttpError } from '../../utils/setHttpError';
 
 export const updateToDo = (updatedToDo, listId, todoId, userId) => {
 	return async (dispatch) => {
 		const fetchData = async () => {
-			const response = await fetch(
-				`${FIREBASE_URL}/${userId}/lists/${listId}/todoList/${todoId}.json`,
-				{
-					method: 'PATCH',
-					body: JSON.stringify(updatedToDo),
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				}
-			);
+			const url = `${FIREBASE_URL}/${userId}/lists/${listId}/todoList/${todoId}.json`;
+			const body = updateToDo;
+			const headers = {
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			};
 
-			if (!response.ok) {
-				throw Object.assign(new Error('Could not update this todo item!'), {
-					status: response.status,
-				});
-			}
+			const response = await axios.patch(url, body, headers);
+
+			return response.data;
 		};
 		try {
 			dispatch(uiActions.setIsLoading(true));
@@ -37,13 +35,7 @@ export const updateToDo = (updatedToDo, listId, todoId, userId) => {
 		} catch (err) {
 			dispatch(uiActions.setIsLoading(false));
 
-			dispatch(
-				errorActions.seHttpError({
-					httpError: { message: err.message, status: err.status },
-					errorFunction: 'updateToDo',
-					retryInformation: { updateToDo, listId, todoId, userId },
-				})
-			);
+			setHttpError(err, dispatch);
 		}
 	};
 };
