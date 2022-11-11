@@ -16,7 +16,6 @@ const PasswordInput = (props) => {
 				id='password'
 				value={props.passwordState.value}
 				onChange={props.passwordChangeHandler}
-				onBlur={props.passwordBlurHandler}
 			/>
 			{isPasswordINVALID && (
 				<p className={cssStyle.errorText}>Password is invalid.</p>

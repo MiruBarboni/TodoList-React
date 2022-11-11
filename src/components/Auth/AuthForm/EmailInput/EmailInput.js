@@ -17,7 +17,6 @@ const EmailInput = (props) => {
 				id='email'
 				value={props.emailState.value}
 				onChange={props.emailChangeHandler}
-				onBlur={props.emailBlurHandler}
 			/>
 
 			{isEmailINVALID && (

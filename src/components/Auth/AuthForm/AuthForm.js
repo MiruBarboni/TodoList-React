@@ -25,7 +25,6 @@ const AuthForm = () => {
 	const {
 		inputState: emailState,
 		inputChangeHandler: emailChangeHandler,
-		inputBlurHandler: emailBlurHandler,
 		inputReset: emailReset,
 	} = useInput(emailRegex, '');
 
@@ -34,7 +33,6 @@ const AuthForm = () => {
 	const {
 		inputState: passwordState,
 		inputChangeHandler: passwordChangeHandler,
-		inputBlurHandler: passwordBlurHandler,
 		inputReset: passwordReset,
 	} = useInput(passwordRegex, '');
 
@@ -73,20 +71,18 @@ const AuthForm = () => {
 				<EmailInput
 					emailState={emailState}
 					emailChangeHandler={emailChangeHandler}
-					emailBlurHandler={emailBlurHandler}
 					emailIsValid={emailIsValid}
 					emailIsTouched={emailIsTouched}
 				/>
 				<PasswordInput
 					passwordState={passwordState}
 					passwordChangeHandler={passwordChangeHandler}
-					passwordBlurHandler={passwordBlurHandler}
 					passwordIsValid={passwordIsValid}
 					passwordIsTouched={passwordIsTouched}
 				/>
 				<ControlButtons
-					emailIsValid={emailIsValid}
-					passwordIsValid={passwordIsValid}
+					emailIsValid={emailIsValid && emailIsTouched}
+					passwordIsValid={passwordIsValid && passwordIsTouched}
 				/>
 			</form>
 		</section>
