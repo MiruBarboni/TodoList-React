@@ -25,6 +25,7 @@ const AuthForm = () => {
 	const {
 		inputState: emailState,
 		inputChangeHandler: emailChangeHandler,
+		inputKeyDownHandler: emailKeyDownHandler,
 		inputReset: emailReset,
 	} = useInput(emailRegex, '');
 
@@ -33,6 +34,7 @@ const AuthForm = () => {
 	const {
 		inputState: passwordState,
 		inputChangeHandler: passwordChangeHandler,
+		inputKeyDownHandler: passwordKeyDownHandler,
 		inputReset: passwordReset,
 	} = useInput(passwordRegex, '');
 
@@ -40,18 +42,21 @@ const AuthForm = () => {
 		value: enteredEmail,
 		isValid: emailIsValid,
 		isTouched: emailIsTouched,
+		isCapsLockOn: emailIsCapsLockOn,
 	} = emailState;
 
 	const {
 		value: enteredPasssword,
 		isValid: passwordIsValid,
 		isTouched: passwordIsTouched,
+		isCapsLockOn: passwordIsCapsLockOn,
 	} = passwordState;
 
 	const { isLoginFormDisplayed } = useSelector((state) => state.auth);
 
 	const submitHandler = (e) => {
 		e.preventDefault();
+
 		emailReset();
 		passwordReset();
 
@@ -71,14 +76,18 @@ const AuthForm = () => {
 				<EmailInput
 					emailState={emailState}
 					emailChangeHandler={emailChangeHandler}
+					emailKeyDownHandler={emailKeyDownHandler}
 					emailIsValid={emailIsValid}
 					emailIsTouched={emailIsTouched}
+					emailIsCapsLockOn={emailIsCapsLockOn}
 				/>
 				<PasswordInput
 					passwordState={passwordState}
 					passwordChangeHandler={passwordChangeHandler}
+					passwordKeyDownHandler={passwordKeyDownHandler}
 					passwordIsValid={passwordIsValid}
 					passwordIsTouched={passwordIsTouched}
+					passwordIsCapsLockOn={passwordIsCapsLockOn}
 				/>
 				<ControlButtons
 					emailIsValid={emailIsValid && emailIsTouched}

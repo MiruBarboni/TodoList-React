@@ -35,4 +35,4 @@ const ControlButtons = (props) => {
 	);
 };
 
-export default ControlButtons;
+export default React.memo(ControlButtons);

@@ -13,4 +13,4 @@ const TitleForm = () => {
 	);
 };
 
-export default TitleForm;
+export default React.memo(TitleForm);

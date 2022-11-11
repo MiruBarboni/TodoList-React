@@ -1,10 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 
+import InputInfo from '../InputInfo/InputInfo';
+import VisibilityIcon from './VisibilityIcon/VisibilityIcon';
+
 import cssStyle from '../ControlInput.module.css';
 import cssStyle2 from './PasswordInput.module.css';
-
-import VisibilityIcon from './VisibilityIcon/VisibilityIcon';
 
 const PasswordInput = (props) => {
 	const isPasswordINVALID = props.passwordIsTouched && !props.passwordIsValid;
@@ -27,6 +28,7 @@ const PasswordInput = (props) => {
 					id='password'
 					value={props.passwordState.value}
 					onChange={props.passwordChangeHandler}
+					onKeyDown={props.passwordKeyDownHandler}
 				/>
 				{props.passwordIsTouched && (
 					<VisibilityIcon
@@ -39,6 +41,7 @@ const PasswordInput = (props) => {
 			{isPasswordINVALID && (
 				<p className={cssStyle.errorText}>Password is invalid</p>
 			)}
+			{props.passwordIsCapsLockOn && <InputInfo />}
 		</div>
 	);
 };

@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useReducer } from 'react';
 import { checkvalidity } from '../utils/checkValidity';
 import { useDebounceInput } from './useDebounceValue';
@@ -7,6 +8,7 @@ const ACTIONS = {
 	USER_BLUR: 'USER_BLUR',
 	USER_RESET: 'USER_RESET',
 	VALIDATE_INPUT: 'VALIDATE_INPUT',
+	USER_KEYDOWN: 'USER_KEYDOWN',
 };
 
 export function useInput(pattern, initialValue) {
@@ -23,6 +25,7 @@ export function useInput(pattern, initialValue) {
 					value: '',
 					isValid: true,
 					isTouched: false,
+					isCapsLockOn: false,
 				};
 
 			case ACTIONS.VALIDATE_INPUT: {
@@ -32,9 +35,20 @@ export function useInput(pattern, initialValue) {
 					isValid: checkvalidity(state.value, pattern),
 				};
 			}
+			case ACTIONS.USER_KEYDOWN: {
+				return {
+					...state,
+					isCapsLockOn: action.value,
+				};
+			}
 
 			default:
-				return { value: '', isValid: true, isTouched: false };
+				return {
+					value: '',
+					isValid: true,
+					isTouched: false,
+					isCapsLockOn: false,
+				};
 		}
 	};
 
@@ -42,9 +56,13 @@ export function useInput(pattern, initialValue) {
 		value: initialValue,
 		isValid: true,
 		isTouched: false,
+		isCapsLockOn: false,
 	});
-	const dispatchCallback = () =>
-		dispatchInput({ type: ACTIONS.VALIDATE_INPUT });
+
+	const dispatchCallback = useCallback(
+		() => dispatchInput({ type: ACTIONS.VALIDATE_INPUT }),
+		[dispatchInput]
+	);
 	useDebounceInput(inputState.value, dispatchCallback, 1000);
 
 	const inputChangeHandler = ({ target }) => {
@@ -55,9 +73,17 @@ export function useInput(pattern, initialValue) {
 		dispatchInput({ type: ACTIONS.USER_RESET });
 	};
 
+	const inputKeyDownHandler = (e) => {
+		dispatchInput({
+			type: ACTIONS.USER_KEYDOWN,
+			value: e.getModifierState('CapsLock'),
+		});
+	};
+
 	return {
 		inputState,
 		inputChangeHandler,
 		inputReset,
+		inputKeyDownHandler,
 	};
 }

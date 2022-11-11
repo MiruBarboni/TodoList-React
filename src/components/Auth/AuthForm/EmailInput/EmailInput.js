@@ -1,5 +1,7 @@
 import React from 'react';
 
+import InputInfo from '../InputInfo/InputInfo';
+
 import cssStyle from '../ControlInput.module.css';
 
 const EmailInput = (props) => {
@@ -17,11 +19,14 @@ const EmailInput = (props) => {
 				id='email'
 				value={props.emailState.value}
 				onChange={props.emailChangeHandler}
+				onKeyDown={props.emailKeyDownHandler}
 			/>
 
 			{isEmailINVALID && (
 				<p className={cssStyle.errorText}>Email is invalid.</p>
 			)}
+
+			{props.emailIsCapsLockOn && <InputInfo />}
 		</div>
 	);
 };
