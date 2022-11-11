@@ -11,7 +11,7 @@ export const updateToDo = (updatedToDo, listId, todoId, userId) => {
 	return async (dispatch) => {
 		const fetchData = async () => {
 			const url = `${FIREBASE_URL}/${userId}/lists/${listId}/todoList/${todoId}.json`;
-			const body = updateToDo;
+			const body = updatedToDo;
 			const headers = {
 				headers: {
 					'Content-Type': 'application/json',
