@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useDebounceCallback } from '../../../../../hooks/useDebounceCallback';
+import { useDebounceCallback } from '../../../../../hooks/useDebounce/useDebounceCallback';
 
 import cssStyle from './Title.module.css';
 

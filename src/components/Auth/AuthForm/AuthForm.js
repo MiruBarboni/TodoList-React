@@ -13,7 +13,8 @@ import TitleForm from './TitleForm/TitleForm';
 import EmailInput from './EmailInput/EmailInput';
 import PasswordInput from './PasswordInput/PasswordInput';
 import ControlButtons from './ControlButtons/ControlButtons';
-import { useInput } from '../../../hooks/useInput';
+import { useEmailInput } from '../../../hooks/useAuthInput/useEmailInput';
+import { usePasswordInput } from '../../../hooks/useAuthInput/usePasswordInput';
 
 import cssStyle from './AuthForm.module.css';
 
@@ -27,16 +28,22 @@ const AuthForm = () => {
 		inputChangeHandler: emailChangeHandler,
 		inputKeyDownHandler: emailKeyDownHandler,
 		inputReset: emailReset,
-	} = useInput(emailRegex, '');
+	} = useEmailInput(emailRegex, '');
 
-	const passwordRegex =
-		/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/; //Minimum eight characters, at least one letter, one number and one special character:
+	const passwordRegex = {
+		minLength: /.{8,}/,
+		lowerCaseLetters: /[a-z]/g,
+		uperCaseLetters: /[A-Z]/,
+		numbers: /[0-9]/g,
+		specialChars: /[@$!%*#?&]/,
+	};
+
 	const {
 		inputState: passwordState,
 		inputChangeHandler: passwordChangeHandler,
 		inputKeyDownHandler: passwordKeyDownHandler,
 		inputReset: passwordReset,
-	} = useInput(passwordRegex, '');
+	} = usePasswordInput(passwordRegex, '');
 
 	const {
 		value: enteredEmail,

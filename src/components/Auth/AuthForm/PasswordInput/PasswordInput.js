@@ -6,9 +6,22 @@ import VisibilityIcon from './VisibilityIcon/VisibilityIcon';
 
 import cssStyle from '../ControlInput.module.css';
 import cssStyle2 from './PasswordInput.module.css';
+import PasswordConditions from './PasswordConditions/PasswordConditions';
 
-const PasswordInput = (props) => {
-	const isPasswordINVALID = props.passwordIsTouched && !props.passwordIsValid;
+const PasswordInput = ({ passwordIsValid, passwordIsTouched, ...props }) => {
+	const minLengthVal = passwordIsValid.minLength;
+	const upperCaseLVal = passwordIsValid.upperCaseL;
+	const lowerCaseLVal = passwordIsValid.lowerCaseL;
+	const numsVal = passwordIsValid.nums;
+	const specialCharsVal = passwordIsValid.specialChars;
+
+	const isPasswordINVALID =
+		(passwordIsTouched && !minLengthVal) ||
+		!upperCaseLVal ||
+		!lowerCaseLVal ||
+		!numsVal ||
+		!specialCharsVal;
+
 	const passwordInputClasses = isPasswordINVALID
 		? `${cssStyle.control} ${cssStyle.invalid}`
 		: `${cssStyle.control}`;
@@ -22,6 +35,7 @@ const PasswordInput = (props) => {
 	return (
 		<div className={passwordInputClasses}>
 			<label htmlFor='password'>Your Password</label>
+
 			<div className={cssStyle2.container}>
 				<input
 					type={showPassword ? 'text' : 'password'}
@@ -30,7 +44,7 @@ const PasswordInput = (props) => {
 					onChange={props.passwordChangeHandler}
 					onKeyDown={props.passwordKeyDownHandler}
 				/>
-				{props.passwordIsTouched && (
+				{passwordIsTouched && (
 					<VisibilityIcon
 						onShowPassword={showPasswordHandler}
 						showPassword={showPassword}
@@ -38,9 +52,10 @@ const PasswordInput = (props) => {
 				)}
 			</div>
 
-			{isPasswordINVALID && (
-				<p className={cssStyle.errorText}>Password is invalid</p>
+			{passwordIsTouched && (
+				<PasswordConditions passwordIsValid={passwordIsValid} />
 			)}
+
 			{props.passwordIsCapsLockOn && <InputInfo />}
 		</div>
 	);

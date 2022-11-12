@@ -1,0 +1,18 @@
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	height: 25px;
+}
+.icon {
+	padding-top: 0;
+	padding-bottom: 0;
+	font-size: 1rem;
+}
+.invalid {
+	color: #e63946;
+}
+
+.valid {
+	color: #2a9d8f;
+}

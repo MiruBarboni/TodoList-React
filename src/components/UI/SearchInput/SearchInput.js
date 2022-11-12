@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useDebounceCallback } from '../../../hooks/useDebounceCallback';
+import { useDebounceCallback } from '../../../hooks/useDebounce/useDebounceCallback';
 
 import { uiActions } from '../../../store/ui-slice';
 

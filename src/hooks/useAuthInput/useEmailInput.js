@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { useReducer } from 'react';
-import { checkvalidity } from '../utils/checkValidity';
-import { useDebounceInput } from './useDebounceValue';
+import { checkvalidity } from '../../utils/checkValidity';
+import { useDebounceInput } from '../useDebounce/useDebounceInput';
 
 const ACTIONS = {
 	USER_INPUT: 'USER_INPUT',
@@ -10,8 +10,7 @@ const ACTIONS = {
 	VALIDATE_INPUT: 'VALIDATE_INPUT',
 	USER_KEYDOWN: 'USER_KEYDOWN',
 };
-
-export function useInput(pattern, initialValue) {
+export function useEmailInput(pattern, initialValue) {
 	const inputReducer = (state, action) => {
 		switch (action.type) {
 			case ACTIONS.USER_INPUT:
