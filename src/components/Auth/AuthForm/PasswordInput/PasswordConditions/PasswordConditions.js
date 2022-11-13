@@ -5,20 +5,23 @@ import Condition from './Condition/Condition';
 import cssStyle from './PasswordConditions.module.css';
 
 const PasswordConditions = ({ passwordIsValid }) => {
-	const minLengthVal = passwordIsValid.minLength;
-	const upperCaseLVal = passwordIsValid.upperCaseL;
-	const lowerCaseLVal = passwordIsValid.lowerCaseL;
-	const numsVal = passwordIsValid.nums;
-	const specialCharsVal = passwordIsValid.specialChars;
+	const {
+		minLength: minLengthVal,
+		upperCaseL: upperCaseLVal,
+		lowerCaseL: lowerCaseLVal,
+		nums: numsVal,
+		specialChars: specialCharsVal,
+	} = passwordIsValid;
+
+	const passwordIsFullValid =
+		minLengthVal &&
+		upperCaseLVal &&
+		lowerCaseLVal &&
+		numsVal &&
+		specialCharsVal;
 
 	return (
-		!(
-			minLengthVal &&
-			upperCaseLVal &&
-			lowerCaseLVal &&
-			numsVal &&
-			specialCharsVal
-		) && (
+		!passwordIsFullValid && (
 			<div className={cssStyle.container}>
 				<div className={cssStyle.subContainer}>
 					<Condition isValid={minLengthVal}>At least 8 char.</Condition>

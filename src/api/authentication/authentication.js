@@ -3,8 +3,6 @@ import axios from 'axios';
 import { authActions } from '../../store/auth-slice';
 import { uiActions } from '../../store/ui-slice';
 
-import { setHttpError } from '../../utils/setHttpError';
-
 export const authentication = (url, enteredEmail, enteredPassword) => {
 	return async (dispatch) => {
 		const authData = async () => {
@@ -46,7 +44,9 @@ export const authentication = (url, enteredEmail, enteredPassword) => {
 		} catch (err) {
 			dispatch(uiActions.setIsLoading(false));
 
-			setHttpError(err, dispatch);
+			const errMsg = err.response?.data.error?.message;
+
+			dispatch(authActions.displayAuthError(errMsg));
 		}
 	};
 };

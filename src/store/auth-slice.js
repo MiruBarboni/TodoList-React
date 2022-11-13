@@ -6,6 +6,7 @@ const initialState = {
 	token: null,
 	userId: null,
 	refreshToken: null,
+	error: null,
 };
 
 const authSlice = createSlice({
@@ -35,11 +36,13 @@ const authSlice = createSlice({
 			state.expirationTime = null;
 			state.userId = null;
 			state.refreshToken = null;
+			state.error = null;
 
 			localStorage.removeItem('token', null);
 			localStorage.removeItem('expirationTime', null);
 			localStorage.removeItem('userId', null);
 			localStorage.removeItem('refreshToken', null);
+			localStorage.removeItem('error', null);
 		},
 
 		initializeAuthData(state) {
@@ -47,6 +50,11 @@ const authSlice = createSlice({
 			state.expirationTime = localStorage.getItem('expirationTime');
 			state.userId = localStorage.getItem('userId');
 			state.refreshToken = localStorage.getItem('refreshToken');
+			state.error = localStorage.getItem('error');
+		},
+
+		displayAuthError(state, action) {
+			state.error = action.payload;
 		},
 	},
 });

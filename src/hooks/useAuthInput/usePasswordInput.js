@@ -79,6 +79,7 @@ export function usePasswordInput(pattern, initialValue) {
 			nums: true,
 			specialChars: true,
 		},
+		isFullValid: true,
 		isTouched: false,
 		isCapsLockOn: false,
 	});

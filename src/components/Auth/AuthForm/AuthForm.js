@@ -17,9 +17,11 @@ import { useEmailInput } from '../../../hooks/useAuthInput/useEmailInput';
 import { usePasswordInput } from '../../../hooks/useAuthInput/usePasswordInput';
 
 import cssStyle from './AuthForm.module.css';
+import AuthError from './AuthError/AuthError';
 
 const AuthForm = () => {
 	const dispatch = useDispatch();
+	const { isLoginFormDisplayed, error } = useSelector((state) => state.auth);
 
 	/* eslint-disable no-useless-escape */
 	const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -29,6 +31,13 @@ const AuthForm = () => {
 		inputKeyDownHandler: emailKeyDownHandler,
 		inputReset: emailReset,
 	} = useEmailInput(emailRegex, '');
+
+	const {
+		value: enteredEmail,
+		isValid: emailIsValid,
+		isTouched: emailIsTouched,
+		isCapsLockOn: emailIsCapsLockOn,
+	} = emailState;
 
 	const passwordRegex = {
 		minLength: /.{8,}/,
@@ -46,28 +55,31 @@ const AuthForm = () => {
 	} = usePasswordInput(passwordRegex, '');
 
 	const {
-		value: enteredEmail,
-		isValid: emailIsValid,
-		isTouched: emailIsTouched,
-		isCapsLockOn: emailIsCapsLockOn,
-	} = emailState;
-
-	const {
 		value: enteredPasssword,
 		isValid: passwordIsValid,
 		isTouched: passwordIsTouched,
 		isCapsLockOn: passwordIsCapsLockOn,
 	} = passwordState;
 
-	const { isLoginFormDisplayed } = useSelector((state) => state.auth);
+	const {
+		minLength: minLengthVal,
+		upperCaseL: upperCaseLVal,
+		lowerCaseL: lowerCaseLVal,
+		nums: numsVal,
+		specialChars: specialCharsVal,
+	} = passwordIsValid;
+
+	const passwordIsFullValid =
+		minLengthVal &&
+		upperCaseLVal &&
+		lowerCaseLVal &&
+		numsVal &&
+		specialCharsVal;
 
 	const submitHandler = (e) => {
 		e.preventDefault();
 
-		emailReset();
-		passwordReset();
-
-		if (!emailIsValid || !passwordIsValid) return;
+		if (!emailIsValid || !passwordIsFullValid) return;
 
 		let URL;
 		isLoginFormDisplayed
@@ -75,7 +87,11 @@ const AuthForm = () => {
 			: (URL = FIREBASE_SIGN_UP_URL);
 
 		dispatch(authentication(URL, enteredEmail, enteredPasssword));
+
+		if (!emailIsValid) emailReset();
+		if (!passwordIsFullValid) passwordReset();
 	};
+
 	return (
 		<section className={cssStyle.auth}>
 			<form onSubmit={submitHandler}>
@@ -96,9 +112,11 @@ const AuthForm = () => {
 					passwordIsTouched={passwordIsTouched}
 					passwordIsCapsLockOn={passwordIsCapsLockOn}
 				/>
+				{error && <AuthError error={error} />}
+
 				<ControlButtons
 					emailIsValid={emailIsValid && emailIsTouched}
-					passwordIsValid={passwordIsValid && passwordIsTouched}
+					passwordIsValid={passwordIsFullValid && passwordIsTouched}
 				/>
 			</form>
 		</section>
