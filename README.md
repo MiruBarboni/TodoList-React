@@ -13,7 +13,10 @@
 - searching area
 
 - Firebase storage 
-
+ 
+ - Authentication
+ 
+ - Client-side validation
 
 
 
