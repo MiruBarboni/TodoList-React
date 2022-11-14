@@ -13,11 +13,12 @@ import Loading from './components/UI/Loading/Loading';
 import HttpErrorMessage from './components/UI/HttpErrorMessage/HttpErrorMessage';
 import Layout from './components/Layout/Layout';
 import AuthPage from './pages/AuthPage';
+import LostPassword from './pages/LostPassword';
 
 function App() {
 	const { isLoading } = useSelector((state) => state.ui);
 	const { httpError } = useSelector((state) => state.error);
-	const { token } = useSelector((state) => state.auth);
+	const { token, error } = useSelector((state) => state.auth);
 
 	const dispatch = useDispatch();
 
@@ -39,7 +40,7 @@ function App() {
 
 			<Switch>
 				{token && (
-					<Route path='/' exact>
+					<Route path='/'>
 						<SearchLists />
 						<ControlLists />
 						<ToDosAllLists />
@@ -47,9 +48,15 @@ function App() {
 				)}
 
 				{!token && (
-					<Route path='/auth'>
-						<AuthPage />
-					</Route>
+					<>
+						<Route path='/auth' exact>
+							<AuthPage />
+						</Route>
+
+						<Route path='/auth/passwordLost'>
+							<LostPassword />
+						</Route>
+					</>
 				)}
 
 				<Route path='*'>

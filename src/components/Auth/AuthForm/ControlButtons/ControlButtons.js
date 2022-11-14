@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { authActions } from '../../../../store/auth-slice';
@@ -16,6 +17,10 @@ const ControlButtons = (props) => {
 
 	let isFormValid = false;
 	if (props.emailIsValid && props.passwordIsValid) isFormValid = true;
+
+	useEffect(() => {
+		return () => dispatch(authActions.clearAuthError());
+	}, [dispatch, isLoginFormDisplayed]);
 
 	return (
 		<div className={cssStyle.actions}>

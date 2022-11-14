@@ -18,6 +18,9 @@ import { usePasswordInput } from '../../../hooks/useAuthInput/usePasswordInput';
 
 import cssStyle from './AuthForm.module.css';
 import AuthError from './AuthError/AuthError';
+import Card from '../../UI/Card/Card';
+import { authActions } from '../../../store/auth-slice';
+import { useEffect } from 'react';
 
 const AuthForm = () => {
 	const dispatch = useDispatch();
@@ -30,7 +33,7 @@ const AuthForm = () => {
 		inputChangeHandler: emailChangeHandler,
 		inputKeyDownHandler: emailKeyDownHandler,
 		inputReset: emailReset,
-	} = useEmailInput(emailRegex, '');
+	} = useEmailInput(emailRegex, 'miruna@yahoo.com');
 
 	const {
 		value: enteredEmail,
@@ -52,7 +55,7 @@ const AuthForm = () => {
 		inputChangeHandler: passwordChangeHandler,
 		inputKeyDownHandler: passwordKeyDownHandler,
 		inputReset: passwordReset,
-	} = usePasswordInput(passwordRegex, '');
+	} = usePasswordInput(passwordRegex, 'Password1!');
 
 	const {
 		value: enteredPasssword,
@@ -92,8 +95,12 @@ const AuthForm = () => {
 		if (!passwordIsFullValid) passwordReset();
 	};
 
+	useEffect(() => {
+		return () => dispatch(authActions.clearAuthError());
+	}, [dispatch]);
+
 	return (
-		<section className={cssStyle.auth}>
+		<Card className={cssStyle.auth}>
 			<form onSubmit={submitHandler}>
 				<TitleForm />
 				<EmailInput
@@ -119,7 +126,7 @@ const AuthForm = () => {
 					passwordIsValid={passwordIsFullValid && passwordIsTouched}
 				/>
 			</form>
-		</section>
+		</Card>
 	);
 };
 

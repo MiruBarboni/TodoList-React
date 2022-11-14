@@ -7,6 +7,7 @@ import VisibilityIcon from './VisibilityIcon/VisibilityIcon';
 import cssStyle from '../ControlInput.module.css';
 import cssStyle2 from './PasswordInput.module.css';
 import PasswordConditions from './PasswordConditions/PasswordConditions';
+import ForgotPasswordBtn from './ForgotPasswordBtn/ForgotPasswordBtn';
 
 const PasswordInput = ({ passwordIsValid, passwordIsTouched, ...props }) => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -61,6 +62,8 @@ const PasswordInput = ({ passwordIsValid, passwordIsTouched, ...props }) => {
 			)}
 
 			{props.passwordIsCapsLockOn && <InputInfo />}
+
+			<ForgotPasswordBtn />
 		</div>
 	);
 };

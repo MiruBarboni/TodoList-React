@@ -56,6 +56,10 @@ const authSlice = createSlice({
 		displayAuthError(state, action) {
 			state.error = action.payload;
 		},
+
+		clearAuthError(state) {
+			state.error = null;
+		},
 	},
 });
 
