@@ -38,7 +38,7 @@ const LostPasswordForm = () => {
 	};
 
 	useEffect(() => {
-		return () => dispatch(authActions.clearAuthError());
+		return () => error && dispatch(authActions.clearAuthError());
 	}, [dispatch]);
 
 	return (

@@ -96,7 +96,7 @@ const AuthForm = () => {
 	};
 
 	useEffect(() => {
-		return () => dispatch(authActions.clearAuthError());
+		return () => error && dispatch(authActions.clearAuthError());
 	}, [dispatch]);
 
 	return (
