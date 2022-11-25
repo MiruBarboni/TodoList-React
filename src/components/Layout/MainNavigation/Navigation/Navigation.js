@@ -26,7 +26,7 @@ const Navigation = () => {
 						<Link to='/auth'>Login</Link>
 					</li>
 				)}
-				{token && <li>Profile</li>}
+				{/* {token && <li>Profile</li>} */}
 				{token && (
 					<li>
 						<button onClick={logoutHandler}>Logout</button>
