@@ -40,11 +40,16 @@ function App() {
 
 			<Switch>
 				{token && (
-					<Route path='/'>
-						<SearchLists />
-						<ControlLists />
-						<ToDosAllLists />
-					</Route>
+					<>
+						<Route path='/home'>
+							<SearchLists />
+							<ControlLists />
+							<ToDosAllLists />
+						</Route>
+						<Route path='*'>
+							<Redirect to='/home' />
+						</Route>
+					</>
 				)}
 
 				{!token && (
@@ -56,12 +61,12 @@ function App() {
 						<Route path='/auth/passwordLost'>
 							<LostPassword />
 						</Route>
+
+						<Route path='*'>
+							<Redirect to='/auth' />
+						</Route>
 					</>
 				)}
-
-				<Route path='*'>
-					{token ? <Redirect to='/' /> : <Redirect to='/auth' />}
-				</Route>
 
 				{/* <Route path='/profile'>
 					{token && <UserProfile />}
