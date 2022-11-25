@@ -18,7 +18,7 @@ import LostPassword from './pages/LostPassword';
 function App() {
 	const { isLoading } = useSelector((state) => state.ui);
 	const { httpError } = useSelector((state) => state.error);
-	const { token, error } = useSelector((state) => state.auth);
+	const { token } = useSelector((state) => state.auth);
 
 	const dispatch = useDispatch();
 

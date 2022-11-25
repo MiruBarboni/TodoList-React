@@ -3,7 +3,6 @@ import axios from 'axios';
 import { FIREBASE_URL } from '../../constants/firebase';
 
 import { listsActions } from '../../store/lists-slice';
-import { uiActions } from '../../store/ui-slice';
 
 import { setHttpError } from '../../utils/setHttpError';
 
