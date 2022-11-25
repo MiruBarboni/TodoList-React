@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -8,11 +9,13 @@ import cssStyle from './Navigation.module.css';
 
 const Navigation = () => {
 	const dispatch = useDispatch();
+	const history = useHistory();
 
 	const { token } = useSelector((state) => state.auth);
 
 	const logoutHandler = () => {
 		dispatch(authActions.logout());
+		history.push('/auth');
 	};
 
 	return (
