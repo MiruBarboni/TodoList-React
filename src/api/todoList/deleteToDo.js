@@ -22,16 +22,10 @@ export const deleteToDo = (listId, todoId, userId) => {
 			return response.data;
 		};
 		try {
-			dispatch(uiActions.setIsLoading(true));
-
 			await fetchData();
 
 			dispatch(listsActions.deleteToDo({ listId, todoId }));
-
-			dispatch(uiActions.setIsLoading(false));
 		} catch (err) {
-			dispatch(uiActions.setIsLoading(false));
-
 			setHttpError(err, dispatch);
 		}
 	};

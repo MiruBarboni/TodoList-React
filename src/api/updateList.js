@@ -3,7 +3,6 @@ import axios from 'axios';
 import { FIREBASE_URL } from '../constants/firebase';
 
 import { listsActions } from '../store/lists-slice';
-import { uiActions } from '../store/ui-slice';
 
 import { setHttpError } from '../utils/setHttpError';
 
@@ -24,8 +23,6 @@ export const updateList = (updateValue, listId, userId) => {
 		};
 
 		try {
-			dispatch(uiActions.setIsLoading(true));
-
 			await updateData();
 
 			dispatch(
@@ -34,11 +31,7 @@ export const updateList = (updateValue, listId, userId) => {
 					toUpdate: updateValue,
 				})
 			);
-
-			dispatch(uiActions.setIsLoading(false));
 		} catch (err) {
-			dispatch(uiActions.setIsLoading(false));
-
 			setHttpError(err, dispatch);
 		}
 	};
