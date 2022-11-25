@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-	isLoginFormDisplayed: false,
+	isLoginFormDisplayed: true,
 	expirationTime: null,
 	token: null,
 	userId: null,
