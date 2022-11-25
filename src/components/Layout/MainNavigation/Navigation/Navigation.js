@@ -21,11 +21,11 @@ const Navigation = () => {
 	return (
 		<nav className={cssStyle.nav}>
 			<ul>
-				{!token && (
+				{/* {!token && (
 					<li>
 						<Link to='/auth'>Login</Link>
 					</li>
-				)}
+				)} */}
 				{/* {token && <li>Profile</li>} */}
 				{token && (
 					<li>
