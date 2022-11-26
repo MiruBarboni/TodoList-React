@@ -33,7 +33,8 @@ const AuthForm = () => {
 		inputChangeHandler: emailChangeHandler,
 		inputKeyDownHandler: emailKeyDownHandler,
 		inputReset: emailReset,
-	} = useEmailInput(emailRegex, 'miruna@yahoo.com');
+	} = useEmailInput(emailRegex, '');
+	// miruna@yahoo.com
 
 	const {
 		value: enteredEmail,
@@ -55,7 +56,8 @@ const AuthForm = () => {
 		inputChangeHandler: passwordChangeHandler,
 		inputKeyDownHandler: passwordKeyDownHandler,
 		inputReset: passwordReset,
-	} = usePasswordInput(passwordRegex, 'Password1!');
+	} = usePasswordInput(passwordRegex, '');
+	// Password1!
 
 	const {
 		value: enteredPasssword,
@@ -97,7 +99,7 @@ const AuthForm = () => {
 
 	useEffect(() => {
 		return () => error && dispatch(authActions.clearAuthError());
-	}, [dispatch]);
+	}, [dispatch, error]);
 
 	return (
 		<Card className={cssStyle.auth}>

@@ -40,7 +40,7 @@ const LostPasswordForm = () => {
 
 	useEffect(() => {
 		return () => error && dispatch(authActions.clearAuthError());
-	}, [dispatch]);
+	}, [dispatch, error]);
 
 	return (
 		<Card className={cssStyle.container}>
