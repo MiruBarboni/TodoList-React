@@ -99,7 +99,7 @@ const AuthForm = () => {
 
 	useEffect(() => {
 		return () => error && dispatch(authActions.clearAuthError());
-	}, [dispatch, error]);
+	}, [dispatch]);
 
 	return (
 		<Card className={cssStyle.auth}>
