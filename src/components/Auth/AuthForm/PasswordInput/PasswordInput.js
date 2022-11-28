@@ -57,9 +57,15 @@ const PasswordInput = ({ passwordIsValid, passwordIsTouched, ...props }) => {
 				)}
 			</div>
 
-			{passwordIsTouched && (
-				<PasswordConditions passwordIsValid={passwordIsValid} />
-			)}
+			{passwordIsTouched &&
+				(props.isLogIn ? (
+					<p className={cssStyle.errorText}>
+						Password is invalid.It must contain at least 8 characters, 1
+						uppercase, 1 number and 1 special character.
+					</p>
+				) : (
+					<PasswordConditions passwordIsValid={passwordIsValid} />
+				))}
 
 			{props.passwordIsCapsLockOn && <InputInfo />}
 

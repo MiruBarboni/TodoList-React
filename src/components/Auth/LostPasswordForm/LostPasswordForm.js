@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { resetPassword } from '../../../api/authentication/resetPassword';
-import { useEmailInput } from '../../../hooks/useAuthInput/useEmailInput';
+import { useInput } from '../../../hooks/useAuthInput/useInput';
 import Icon from '../../UI/GoogleFontsIcons/Icon';
 import AuthError from '../AuthForm/AuthError/AuthError';
 import EmailInput from '../AuthForm/EmailInput/EmailInput';
@@ -24,7 +24,7 @@ const LostPasswordForm = () => {
 		inputState: emailState,
 		inputChangeHandler: emailChangeHandler,
 		inputKeyDownHandler: emailKeyDownHandler,
-	} = useEmailInput(emailRegex, '');
+	} = useInput(emailRegex, '');
 
 	const {
 		value: enteredEmail,

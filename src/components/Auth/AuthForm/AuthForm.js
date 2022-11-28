@@ -13,7 +13,7 @@ import TitleForm from './TitleForm/TitleForm';
 import EmailInput from './EmailInput/EmailInput';
 import PasswordInput from './PasswordInput/PasswordInput';
 import ControlButtons from './ControlButtons/ControlButtons';
-import { useEmailInput } from '../../../hooks/useAuthInput/useEmailInput';
+import { useInput } from '../../../hooks/useAuthInput/useInput';
 import { usePasswordInput } from '../../../hooks/useAuthInput/usePasswordInput';
 
 import cssStyle from './AuthForm.module.css';
@@ -33,7 +33,7 @@ const AuthForm = () => {
 		inputChangeHandler: emailChangeHandler,
 		inputKeyDownHandler: emailKeyDownHandler,
 		inputReset: emailReset,
-	} = useEmailInput(emailRegex, '');
+	} = useInput(emailRegex, '');
 	// miruna@yahoo.com
 
 	const {
@@ -120,6 +120,7 @@ const AuthForm = () => {
 					passwordIsValid={passwordIsValid}
 					passwordIsTouched={passwordIsTouched}
 					passwordIsCapsLockOn={passwordIsCapsLockOn}
+					isLogIn={isLoginFormDisplayed}
 				/>
 				{error && <AuthError error={error} />}
 

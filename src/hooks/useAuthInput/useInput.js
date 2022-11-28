@@ -10,7 +10,7 @@ const ACTIONS = {
 	VALIDATE_INPUT: 'VALIDATE_INPUT',
 	USER_KEYDOWN: 'USER_KEYDOWN',
 };
-export function useEmailInput(pattern, initialValue) {
+export function useInput(pattern, initialValue) {
 	const inputReducer = (state, action) => {
 		switch (action.type) {
 			case ACTIONS.USER_INPUT:
