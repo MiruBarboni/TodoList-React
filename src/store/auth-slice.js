@@ -7,6 +7,7 @@ const initialState = {
 	userId: null,
 	refreshToken: null,
 	error: null,
+	succeededMsg: false,
 };
 
 const authSlice = createSlice({
@@ -56,9 +57,15 @@ const authSlice = createSlice({
 		displayAuthError(state, action) {
 			state.error = action.payload;
 		},
-
 		clearAuthError(state) {
 			state.error = null;
+		},
+
+		displaySucceededMsg(state) {
+			state.succeededMsg = true;
+		},
+		clearSucceededMsg(state) {
+			state.succeededMsg = false;
 		},
 	},
 });

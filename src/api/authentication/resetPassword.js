@@ -27,6 +27,7 @@ export const resetPassword = (enteredEmail) => {
 
 		try {
 			await sentData();
+			dispatch(authActions.displaySucceededMsg());
 		} catch (err) {
 			const errMsg = err.response?.data.error?.message;
 			dispatch(authActions.displayAuthError(errMsg));

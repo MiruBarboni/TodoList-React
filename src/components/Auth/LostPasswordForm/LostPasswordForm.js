@@ -12,10 +12,11 @@ import Card from '../../UI/Card/Card.js';
 import cssStyle from './LostPasswordForm.module.css';
 import { authActions } from '../../../store/auth-slice';
 import { useEffect } from 'react';
+import SuccessNotification from './SuccessNotification/SuccessNotification';
 
 const LostPasswordForm = () => {
 	const dispatch = useDispatch();
-	const { error } = useSelector((state) => state.auth);
+	const { error, succeededMsg } = useSelector((state) => state.auth);
 
 	/* eslint-disable no-useless-escape */
 	const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -36,33 +37,56 @@ const LostPasswordForm = () => {
 		e.preventDefault();
 
 		dispatch(resetPassword(enteredEmail));
+
+		dispatch(authActions.clearAuthError());
+		dispatch(authActions.clearSucceededMsg());
 	};
 
 	useEffect(() => {
 		return () => error && dispatch(authActions.clearAuthError());
 	}, [dispatch, error]);
 
+	useEffect(() => {
+		return () => succeededMsg && dispatch(authActions.clearSucceededMsg());
+	}, [dispatch, succeededMsg]);
+
+	let isFormValid = false;
+	if (emailIsValid && emailIsTouched) isFormValid = true;
+
 	return (
 		<Card className={cssStyle.container}>
 			<form onSubmit={ResetPasswordHandler}>
 				<Icon className={cssStyle.keyIcon}>key</Icon>
 				<h1>Password Lost ?</h1>
-				<p className={cssStyle.infotext}>
-					No worries, we'll send you reset instructions.
-				</p>
-				<EmailInput
-					emailState={emailState}
-					emailChangeHandler={emailChangeHandler}
-					emailKeyDownHandler={emailKeyDownHandler}
-					emailIsValid={emailIsValid}
-					emailIsTouched={emailIsTouched}
-					emailIsCapsLockOn={emailIsCapsLockOn}
-				/>
+				{!succeededMsg && (
+					<p className={cssStyle.infotext}>
+						No worries, we'll send you reset instructions.
+					</p>
+				)}
+				{!succeededMsg && (
+					<EmailInput
+						emailState={emailState}
+						emailChangeHandler={emailChangeHandler}
+						emailKeyDownHandler={emailKeyDownHandler}
+						emailIsValid={emailIsValid}
+						emailIsTouched={emailIsTouched}
+						emailIsCapsLockOn={emailIsCapsLockOn}
+					/>
+				)}
 				{error && <AuthError error={error} />}
+
+				{succeededMsg && <SuccessNotification email={enteredEmail} />}
+
 				<div className={cssStyle.actions}>
-					<button className={cssStyle.button} onClick={ResetPasswordHandler}>
-						Reset password
-					</button>
+					{!succeededMsg && (
+						<button
+							disabled={!isFormValid}
+							className={cssStyle.button}
+							onClick={ResetPasswordHandler}
+						>
+							Reset password
+						</button>
+					)}
 
 					<Link to={'/auth'} className={cssStyle.link}>
 						<div className={cssStyle.backContainer}>
