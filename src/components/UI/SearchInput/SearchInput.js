@@ -16,10 +16,6 @@ const SearchInput = ({ searchHandler }) => {
 
 	const dispatch = useDispatch();
 
-	const isDisplayCancelSearchBtn = useSelector(
-		(state) => state.ui.isDisplayCancelSearchBtn
-	);
-
 	const clearSearchFieldHandler = () => {
 		dispatch(uiActions.clearSearchedValue());
 		setSearchedValue('');
@@ -39,7 +35,7 @@ const SearchInput = ({ searchHandler }) => {
 				value={searchedValue}
 			/>
 
-			{isDisplayCancelSearchBtn && (
+			{searchedValue.length > 0 && (
 				<button className={cssStyle.btn}>
 					<Icon className={cssStyle.icon} onClick={clearSearchFieldHandler}>
 						cancel

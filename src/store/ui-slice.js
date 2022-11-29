@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	searchedValue: '',
-	isDisplayCancelSearchBtn: false,
 	isColorPaletteActive: false,
 	isListMenuActive: false,
 	isLoading: false,
@@ -17,12 +16,6 @@ const uiSlice = createSlice({
 		},
 		clearSearchedValue(state) {
 			state.searchedValue = '';
-		},
-		displayCancelSearchBtn(state) {
-			state.isDisplayCancelSearchBtn = true;
-		},
-		hideCancelSearchBtn(state) {
-			state.isDisplayCancelSearchBtn = false;
 		},
 		displayColorPalette(state) {
 			state.isColorPaletteActive = true;

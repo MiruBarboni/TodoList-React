@@ -13,10 +13,6 @@ const SearchLists = () => {
 		(searchedString) => {
 			const searchedValue = searchedString.toLowerCase();
 			dispatch(uiActions.setSearchedValue(searchedValue));
-
-			searchedValue.length > 0
-				? dispatch(uiActions.displayCancelSearchBtn())
-				: dispatch(uiActions.hideCancelSearchBtn());
 		},
 		[dispatch]
 	);
