@@ -57,7 +57,7 @@ const PasswordInput = ({ passwordIsValid, passwordIsTouched, ...props }) => {
 				)}
 			</div>
 
-			{passwordIsTouched &&
+			{isPasswordINVALID &&
 				(props.isLogIn ? (
 					<p className={cssStyle.errorText}>
 						Password is invalid.It must contain at least 8 characters, 1
